@@ -4,11 +4,15 @@
  */
 package model;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Aca
  */
-public class Trener {
+public class Trener implements ApstraktniDomenskiObjekat{
     int idTrener;
     String ime;
     String prezime;
@@ -79,6 +83,54 @@ public class Trener {
     @Override
     public String toString() {
         return "Trener{" + "ime=" + ime + ", prezime=" + prezime + ", email=" + email + '}';
+    }
+
+    @Override
+    public String vratiNazivTabele() {
+        return "trener";
+    }
+
+    @Override
+    public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
+        List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
+        while(rs.next()){
+            int id = rs.getInt("trener.idTrener");
+            String ime = rs.getString("trener.ime");
+            String prezime = rs.getString("trener.prezime");
+            String korisnickoIme = rs.getString("trener.korisnickoIme");
+            String email = rs.getString("trener.email");
+            String sifra = rs.getString("trener.sifra");
+            
+            Trener t = new Trener(id, ime, prezime, email, korisnickoIme, sifra);
+            lista.add(t);
+        }
+        
+        return lista;
+    }
+
+    @Override
+    public String vratiKoloneZaUbacivanje() {
+        return "ime, prezime, email, korisnickoIme, sifra";
+    }
+
+    @Override
+    public String vratiVrednostiZaUbacivanje() {
+        return "'" + ime + "', '" + prezime + "', '" + email + "', '" + korisnickoIme + "', '" + sifra + "'";
+    }
+
+    @Override
+    public String vratiPrimarniKljuc() {
+        return "trener.idTrener=" + idTrener;
+    }
+
+    @Override
+    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String vratiVrednostiZaIzmenu() {
+        return "ime='" + ime + "', prezime='" + prezime + "', email='" + email + "', korisnickoIme'" + korisnickoIme + "', sifra='" + sifra + "'";
     }
     
     

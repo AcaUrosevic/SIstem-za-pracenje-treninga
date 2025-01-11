@@ -4,11 +4,16 @@
  */
 package model;
 
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Aca
  */
-public class Sertifikat {
+public class Sertifikat implements ApstraktniDomenskiObjekat{
     int idSertifikat;
     String naziv;
     String tip;
@@ -44,6 +49,51 @@ public class Sertifikat {
 
     public void setTip(String tip) {
         this.tip = tip;
+    }
+
+    @Override
+    public String vratiNazivTabele() {
+        return "sertifikat";
+    }
+
+    @Override
+    public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
+        List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
+        while(rs.next()){
+            int id = rs.getInt("sertifikat.idSertifikat");
+            String naziv = rs.getString("sertifikat.naziv");
+            String tip = rs.getString("sertifikat.tip");
+            
+            Sertifikat s = new Sertifikat(id, naziv, tip);
+            lista.add(s);
+        }
+        
+        return lista;
+    }
+
+    @Override
+    public String vratiKoloneZaUbacivanje() {
+        return "naziv, tip";
+    }
+
+    @Override
+    public String vratiVrednostiZaUbacivanje() {
+        return "'" + naziv + "', '" + tip + "'";
+    }
+
+    @Override
+    public String vratiPrimarniKljuc() {
+        return "sertifikat.idSertifikat=" + idSertifikat;
+    }
+
+    @Override
+    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String vratiVrednostiZaIzmenu() {
+        return "naziv='" + naziv + "', tip='" + tip + "'";
     }
     
     

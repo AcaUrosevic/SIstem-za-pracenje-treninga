@@ -4,11 +4,15 @@
  */
 package model;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Aca
  */
-public class StarosnaGrupa {
+public class StarosnaGrupa implements ApstraktniDomenskiObjekat{
     int idStarosnaGrupa;
     String naziv;
     int rasponOd;
@@ -54,6 +58,52 @@ public class StarosnaGrupa {
 
     public void setRasponDo(int rasponDo) {
         this.rasponDo = rasponDo;
+    }
+
+    @Override
+    public String vratiNazivTabele() {
+        return "starosna_grupa";
+    }
+
+    @Override
+    public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
+        List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
+        while(rs.next()){
+            int id = rs.getInt("starosna_grupa.idStarosnaGrupa");
+            String naziv = rs.getString("starosnaGrupa.naziv");
+            int rasponOd = rs.getInt("starosnaGrupa.rasponOd");
+            int rasponDo = rs.getInt("starosnaGrupa.rasponDo");
+            
+            StarosnaGrupa sg = new StarosnaGrupa(id, naziv, rasponOd, rasponDo);
+            lista.add(sg);
+        }
+        
+        return lista;
+    }
+
+    @Override
+    public String vratiKoloneZaUbacivanje() {
+        return "naziv, rasponOd, rasponDo";
+    }
+
+    @Override
+    public String vratiVrednostiZaUbacivanje() {
+        return "'" + naziv + "', " + rasponOd + ", " + rasponDo;
+    }
+
+    @Override
+    public String vratiPrimarniKljuc() {
+        return "starosna_grupa.idStarosnaGrupa=" + idStarosnaGrupa;
+    }
+
+    @Override
+    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String vratiVrednostiZaIzmenu() {
+        return "naziv='" + naziv + "', rasponOd=" + rasponOd + ", rasponDo=" + rasponDo;
     }
     
     

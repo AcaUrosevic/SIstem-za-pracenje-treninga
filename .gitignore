@@ -1,0 +1,42 @@
+# Java specific
+*.class
+*.jar
+*.war
+*.ear
+
+# Log files
+*.log
+*.out
+*.tmp
+
+# Maven and Gradle
+.mvn/
+target/
+build/
+*.iml
+.gradle/
+.gradle-cache/
+*.bat
+*.sh
+*.cmd
+
+# IDE specific (IntelliJ IDEA, Eclipse, NetBeans)
+.idea/
+*.iml
+*.ipr
+*.iws
+*.classpath
+*.project
+.vscode/
+*.launch
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# JARs and binary libs
+lib/*.jar
+
+# Configurations
+*.properties
+*.env

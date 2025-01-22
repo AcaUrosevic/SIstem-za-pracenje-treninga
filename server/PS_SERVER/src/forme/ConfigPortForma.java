@@ -4,18 +4,23 @@
  */
 package forme;
 
+import javax.swing.JOptionPane;
+import konfiguracija.Konfiguracija;
+
 /**
  *
  * @author Aca
  */
 public class ConfigPortForma extends javax.swing.JDialog {
-
+    Konfiguracija konfiguracija;
     /**
      * Creates new form ConfigPortForma
      */
     public ConfigPortForma(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        konfiguracija = Konfiguracija.getInstance();
+        txtPort.setText(konfiguracija.getProperty("port"));
     }
 
     /**
@@ -36,6 +41,11 @@ public class ConfigPortForma extends javax.swing.JDialog {
         jLabel1.setText("PORT:");
 
         jButton1.setText("SACUVAJ PROMENE");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,6 +78,28 @@ public class ConfigPortForma extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int port;
+        try{
+            port = Integer.parseInt(txtPort.getText());
+        } catch(NumberFormatException ex){
+            JOptionPane.showConfirmDialog(this, "GRESKA, port mora da bude broj", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(port >= 0 && port <= 65535){
+            konfiguracija.setProperty("port", port+"");
+            konfiguracija.sacuvajIzmene();
+            JOptionPane.showMessageDialog(this, "Parapetri su sacuvani!", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        }
+        else{
+            JOptionPane.showConfirmDialog(this, "GRESKA, port nije u opsegu izmedju 0 i 65535", "Greska", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

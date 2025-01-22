@@ -22,6 +22,7 @@ public class ServerskaForma extends javax.swing.JFrame {
         initComponents();
         lblStatus.setText("NEAKTIVAN");
         server = new Server();
+        btnZaustavi.setEnabled(false);
     }
 
     /**
@@ -126,53 +127,22 @@ public class ServerskaForma extends javax.swing.JFrame {
 
     private void btnPokreniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokreniActionPerformed
         server = new Server();
-        try {
-            server.pokreniServer();
-        } catch (IOException ex) {
-            Logger.getLogger(ServerskaForma.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        server.start();
         lblStatus.setText("AKTIVAN");
+        btnZaustavi.setEnabled(true);
+        btnPokreni.setEnabled(false);
     }//GEN-LAST:event_btnPokreniActionPerformed
 
     private void btnZaustaviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZaustaviActionPerformed
         server.zaustaviServer();
         lblStatus.setText("NEAKTIVAN");
+        btnZaustavi.setEnabled(false);
+        btnPokreni.setEnabled(true);
     }//GEN-LAST:event_btnZaustaviActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ServerskaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ServerskaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ServerskaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ServerskaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ServerskaForma().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfigBaza;

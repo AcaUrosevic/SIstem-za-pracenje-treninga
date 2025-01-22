@@ -4,18 +4,25 @@
  */
 package forme;
 
+import javax.swing.JOptionPane;
+import konfiguracija.Konfiguracija;
+
 /**
  *
  * @author Aca
  */
 public class ConfigBazaForma extends javax.swing.JDialog {
-
+    Konfiguracija konfiguracija;
     /**
      * Creates new form ConfigBazaForma
      */
     public ConfigBazaForma(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        konfiguracija = Konfiguracija.getInstance();
+        txtUrl.setText(konfiguracija.getProperty("url"));
+        txtUsername.setText(konfiguracija.getProperty("username"));
+        txtPassword.setText(konfiguracija.getProperty("password"));
     }
 
     /**
@@ -44,6 +51,11 @@ public class ConfigBazaForma extends javax.swing.JDialog {
         jLabel3.setText("PASSWORD:");
 
         btnSacuvajPromene.setText("SACUVAJ PROMENE");
+        btnSacuvajPromene.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSacuvajPromeneActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,6 +101,25 @@ public class ConfigBazaForma extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSacuvajPromeneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajPromeneActionPerformed
+        String url = txtUrl.getText().trim();
+        String username = txtUsername.getText().trim();
+        String password = String.valueOf(txtPassword.getPassword());
+        try{
+            konfiguracija.setProperty("url", url);
+            konfiguracija.setProperty("username", username);
+            konfiguracija.setProperty("password", password);
+            
+            konfiguracija.sacuvajIzmene();
+            JOptionPane.showMessageDialog(this, "Parapetri su sacuvani!", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } catch(Exception ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Greska, parametri nisu sacuvani!", "GRESKA", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnSacuvajPromeneActionPerformed
 
     /**
      * @param args the command line arguments

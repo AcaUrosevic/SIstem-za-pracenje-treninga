@@ -17,17 +17,17 @@ public class ClanTeretane implements ApstraktniDomenskiObjekat{
     String ime;
     String prezime;
     String email;
-    StarosnaGrupa starosnaGrupa;
+    PaketUsluga paketUsluga;
 
     public ClanTeretane() {
     }
 
-    public ClanTeretane(int idClanTeretane, String ime, String prezime, String email, StarosnaGrupa starosnaGrupa) {
+    public ClanTeretane(int idClanTeretane, String ime, String prezime, String email, PaketUsluga paketUsluga) {
         this.idClanTeretane = idClanTeretane;
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
-        this.starosnaGrupa = starosnaGrupa;
+        this.paketUsluga = paketUsluga;
     }
 
     public int getIdClanTeretane() {
@@ -62,12 +62,12 @@ public class ClanTeretane implements ApstraktniDomenskiObjekat{
         this.email = email;
     }
 
-    public StarosnaGrupa getStarosnaGrupa() {
-        return starosnaGrupa;
+    public PaketUsluga getPaketUsluga() {
+        return paketUsluga;
     }
 
-    public void setStarosnaGrupa(StarosnaGrupa starosnaGrupa) {
-        this.starosnaGrupa = starosnaGrupa;
+    public void setPaketUsluga(PaketUsluga paketUsluga) {
+        this.paketUsluga = paketUsluga;
     }
 
     @Override
@@ -93,12 +93,12 @@ public class ClanTeretane implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiKoloneZaUbacivanje() {
-        return "ime, prezime, email, starosnaGrupa";
+        return "ime, prezime, email, paketUsluga";
     }
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-        return "'" + ime + "', '" + prezime + "', '" + email + "', " + starosnaGrupa.getIdStarosnaGrupa();
+        return "'" + ime + "', '" + prezime + "', '" + email + "', " + paketUsluga.getIdPaketUsluga();
     }
 
     @Override
@@ -113,7 +113,7 @@ public class ClanTeretane implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-        return "ime='" + ime + "', prezime='" + prezime + "', email='" + email + "', starosnaGrupa=" + starosnaGrupa.getIdStarosnaGrupa();
+        return "ime='" + ime + "', prezime='" + prezime + "', email='" + email + "', paketUsluga=" + paketUsluga.getIdPaketUsluga();
     }
     
     

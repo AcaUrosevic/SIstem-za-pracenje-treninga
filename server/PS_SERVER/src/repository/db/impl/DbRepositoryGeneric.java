@@ -4,9 +4,13 @@
  */
 package repository.db.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.ApstraktniDomenskiObjekat;
 import repository.db.DbRepository;
+import java.sql.Statement;
+import repository.db.DbConnectionFactory;
+import java.sql.ResultSet;
 
 /**
  *
@@ -15,23 +19,41 @@ import repository.db.DbRepository;
 public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjekat>{
 
     @Override
-    public List<ApstraktniDomenskiObjekat> getAll(ApstraktniDomenskiObjekat param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<ApstraktniDomenskiObjekat> getAll(ApstraktniDomenskiObjekat param, String uslov) throws Exception {
+        List<ApstraktniDomenskiObjekat> result = new ArrayList<>();
+        String upit = "SELECT * FROM " + param.vratiNazivTabele();
+        if(uslov != null)
+            upit += uslov;
+        Statement s = DbConnectionFactory.getInstance().getConnection().createStatement();
+        ResultSet rs = s.executeQuery(upit);
+        result = param.vratiListu(rs);
+        rs.close();
+        s.close();
+        return result;
     }
 
     @Override
     public void add(ApstraktniDomenskiObjekat param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String upit = "INSERT INTO "+ param.vratiNazivTabele() + " (" + param.vratiKoloneZaUbacivanje() + ") VALUES(" + param.vratiVrednostiZaUbacivanje() + ")";
+        Statement s = DbConnectionFactory.getInstance().getConnection().createStatement();
+        s.executeUpdate(upit);
+        s.close();
     }
 
     @Override
     public void edit(ApstraktniDomenskiObjekat param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String upit = "UPDATE " + param.vratiNazivTabele() + " SET " + param.vratiVrednostiZaIzmenu();
+        Statement s = DbConnectionFactory.getInstance().getConnection().createStatement();
+        s.executeUpdate(upit);
+        s.close();
     }
 
     @Override
     public void delete(ApstraktniDomenskiObjekat param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String upit = "DELETE FROM " + param.vratiNazivTabele() + " WHERE " + param.vratiPrimarniKljuc() ;
+        Statement s = DbConnectionFactory.getInstance().getConnection().createStatement();
+        s.executeUpdate(upit);
+        s.close();
     }
 
     @Override

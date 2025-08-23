@@ -15,15 +15,22 @@ import java.util.logging.Logger;
  * @author Aca
  */
 public class Posiljalac {
-    private Socket socket;
+    Socket socket;
+    ObjectOutputStream oos;
 
     public Posiljalac(Socket socket) {
         this.socket = socket;
+        try {
+            oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(Posiljalac.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void posalji(Object obj){
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.reset();
             oos.writeObject(obj);
             oos.flush();
         } catch (IOException ex) {

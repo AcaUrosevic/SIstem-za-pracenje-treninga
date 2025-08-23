@@ -91,7 +91,7 @@ public class ConfigPortForma extends javax.swing.JDialog {
         if(port >= 0 && port <= 65535){
             konfiguracija.setProperty("port", port+"");
             konfiguracija.sacuvajIzmene();
-            JOptionPane.showMessageDialog(this, "Parapetri su sacuvani!", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Parametri su sacuvani!", "USPEH", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
         else{

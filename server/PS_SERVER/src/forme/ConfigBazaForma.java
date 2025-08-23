@@ -112,7 +112,7 @@ public class ConfigBazaForma extends javax.swing.JDialog {
             konfiguracija.setProperty("password", password);
             
             konfiguracija.sacuvajIzmene();
-            JOptionPane.showMessageDialog(this, "Parapetri su sacuvani!", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Parametri su sacuvani!", "USPEH", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } catch(Exception ex){
             ex.printStackTrace();

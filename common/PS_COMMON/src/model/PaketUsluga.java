@@ -110,6 +110,13 @@ public class PaketUsluga implements ApstraktniDomenskiObjekat{
     }
 
     @Override
+    public String toString() {
+        return "PaketUsluga{" + "naziv=" + naziv + '}';
+    }
+    
+    
+
+    @Override
     public String vratiKoloneZaUbacivanje() {
         return "datumUplate, trajanje, cena, naziv, opis";
     }

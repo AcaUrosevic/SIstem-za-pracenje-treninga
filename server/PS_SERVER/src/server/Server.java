@@ -39,6 +39,7 @@ public class Server extends Thread{
                 okz.start();
             }
         } catch (IOException ex){
+            if(kraj == true) return;
             ex.printStackTrace();
         }
     }

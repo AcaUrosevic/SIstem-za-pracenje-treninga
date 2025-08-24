@@ -6,8 +6,10 @@ package komunikacija;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.ClanTeretane;
 import model.Trener;
 
 /**
@@ -47,6 +49,20 @@ public class Komunikacija {
         Odgovor odgovor = (Odgovor) primalac.primi();
         trener  = (Trener) odgovor.getOdgovor();
         return trener;
+    }
+
+    public List<ClanTeretane> ucitajClanove() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_CLANOVE, null);
+        posiljalac.posalji(zahtev);
+        Odgovor odgovor = (Odgovor) primalac.primi();
+        return (List<ClanTeretane>) odgovor.getOdgovor();
+    }
+
+    public boolean obrisiPacijenta(ClanTeretane clan) {
+        Zahtev zahtev = new Zahtev(Operacija.OBRISI_CLANA, clan);
+        posiljalac.posalji(zahtev);
+        Odgovor odgovor = (Odgovor) primalac.primi();
+        return (boolean) odgovor.getOdgovor();
     }
     
 }

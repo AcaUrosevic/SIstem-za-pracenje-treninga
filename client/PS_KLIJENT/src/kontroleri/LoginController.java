@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
+import kordinator.Kordinator;
 import model.Trener;
 
 /**
@@ -35,10 +36,12 @@ public class LoginController {
                 Trener trener = Komunikacija.getInstance().login(username, password);
                 
                 if(trener == null){
-                    JOptionPane.showMessageDialog(lf, "NEUSPESNO PRIJAVLJIVANJE", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(lf, "Korisnicko ime i sifra nisu ispravni", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                JOptionPane.showMessageDialog(lf, "USPESNO PRIJAVLJIVANJE", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(lf, "Korisnicko ima i sifra su ispravni", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                Kordinator.getInstance().setUlogovani(trener);
+                Kordinator.getInstance().otvoriGlavnuFormu();
                 lf.dispose();
             }
         });

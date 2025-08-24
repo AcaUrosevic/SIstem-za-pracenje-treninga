@@ -4,8 +4,14 @@
  */
 package controller;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.ClanTeretane;
 import model.Trener;
 import operacije.LoginOperacija;
+import operacije.ObrisiClanaTeretaneSO;
+import operacije.UcitajClanoveOperacija;
 
 /**
  *
@@ -25,8 +31,24 @@ public class Controller {
     }
 
     public Trener login(Trener trener) throws Exception {
-        LoginOperacija lo = new LoginOperacija();
-        lo.izvrsi(trener, null);
-        return lo.getTrener();
+        LoginOperacija operacija = new LoginOperacija();
+        operacija.izvrsi(trener, null);
+        return operacija.getTrener();
+    }
+
+    public List<ClanTeretane> vratiListuClanova() throws Exception {
+        UcitajClanoveOperacija operacija = new UcitajClanoveOperacija();
+        operacija.izvrsi(new ClanTeretane(), "");
+        return operacija.getClanovi();
+    }
+
+    public boolean obrisiClanaTeretane(ClanTeretane clanTeretane) {
+        ObrisiClanaTeretaneSO operacija = new ObrisiClanaTeretaneSO();
+        try {
+            operacija.izvrsi(clanTeretane, "");
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 }

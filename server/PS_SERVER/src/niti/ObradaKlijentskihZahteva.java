@@ -7,6 +7,7 @@ package niti;
 import controller.Controller;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import komunikacija.Odgovor;
@@ -14,6 +15,7 @@ import komunikacija.Operacija;
 import komunikacija.Posiljalac;
 import komunikacija.Primalac;
 import komunikacija.Zahtev;
+import model.ClanTeretane;
 import model.Trener;
 
 /**
@@ -47,11 +49,20 @@ public class ObradaKlijentskihZahteva extends Thread{
                         trener = Controller.getInstance().login(trener);
                         odgovor.setOdgovor(trener);
                         break;
+                    case Operacija.UCITAJ_CLANOVE:
+                        List<ClanTeretane> clanovi = Controller.getInstance().vratiListuClanova();
+                        odgovor.setOdgovor(clanovi);
+                        break;
+                    case Operacija.OBRISI_CLANA:
+                        boolean obrisan = Controller.getInstance().obrisiClanaTeretane((ClanTeretane)zahtev.getParametar());
+                        odgovor.setOdgovor(obrisan);
+                        break;
                     default:
                         System.out.println("greska, losa operacija u zahtevu");
                 }
                 posiljalac.posalji(odgovor);
             } catch (Exception ex) {
+                if(kraj) return;
                 Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

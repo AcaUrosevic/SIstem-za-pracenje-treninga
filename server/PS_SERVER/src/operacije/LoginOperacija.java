@@ -18,7 +18,6 @@ public class LoginOperacija extends ApstraktnaGenerickaOperacija{
     
     @Override
     protected void preduslovi(Object obj) throws Exception {
-        return;
     }
 
     @Override

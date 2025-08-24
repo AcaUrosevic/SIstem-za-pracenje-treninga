@@ -23,6 +23,11 @@ public class Trener implements ApstraktniDomenskiObjekat{
     public Trener() {
     }
 
+    public Trener(String korisnickoIme, String sifra) {
+        this.korisnickoIme = korisnickoIme;
+        this.sifra = sifra;
+    }
+    
     public Trener(int idTrener, String ime, String prezime, String email, String korisnickoIme, String sifra) {
         this.idTrener = idTrener;
         this.ime = ime;

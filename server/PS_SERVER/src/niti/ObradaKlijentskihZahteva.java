@@ -4,14 +4,17 @@
  */
 package niti;
 
+import controller.Controller;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import komunikacija.Odgovor;
+import komunikacija.Operacija;
 import komunikacija.Posiljalac;
 import komunikacija.Primalac;
 import komunikacija.Zahtev;
+import model.Trener;
 
 /**
  *
@@ -34,14 +37,23 @@ public class ObradaKlijentskihZahteva extends Thread{
     @Override
     public void run() {
         while(!kraj){
-            Zahtev zahtev = (Zahtev)primalac.primi();
-            Odgovor odgovor = new Odgovor();
-            
-            switch (zahtev.getOperacija()) {
-                default:
-                    System.out.println("greska, losa operacija u zahtevu");
+            try {
+                Zahtev zahtev = (Zahtev)primalac.primi();
+                Odgovor odgovor = new Odgovor();
+                
+                switch (zahtev.getOperacija()) {
+                    case Operacija.LOGIN:
+                        Trener trener = (Trener) zahtev.getParametar();
+                        trener = Controller.getInstance().login(trener);
+                        odgovor.setOdgovor(trener);
+                        break;
+                    default:
+                        System.out.println("greska, losa operacija u zahtevu");
+                }
+                posiljalac.posalji(odgovor);
+            } catch (Exception ex) {
+                Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
             }
-            posiljalac.posalji(odgovor);
         }
     }
     

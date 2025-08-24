@@ -42,3 +42,4 @@ lib/*.jar
 *.env
 /server/PS_SERVER/nbproject/private/
 /common/PS_COMMON/dist/
+/client/PS_KLIJENT/nbproject/private/

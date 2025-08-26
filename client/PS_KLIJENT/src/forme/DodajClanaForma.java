@@ -21,7 +21,6 @@ public class DodajClanaForma extends javax.swing.JFrame {
      */
     public DodajClanaForma() {
         initComponents();
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -42,6 +41,7 @@ public class DodajClanaForma extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         cbPaketUsluga = new javax.swing.JComboBox<>();
         btnDodaj = new javax.swing.JButton();
+        btnIzmeni = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,6 +54,8 @@ public class DodajClanaForma extends javax.swing.JFrame {
         jLabel4.setText("Paket usluga");
 
         btnDodaj.setText("Dodaj");
+
+        btnIzmeni.setText("Izmeni");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,8 +77,10 @@ public class DodajClanaForma extends javax.swing.JFrame {
                             .addComponent(txtEmail)
                             .addComponent(cbPaketUsluga, 0, 144, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(72, 72, 72)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnDodaj, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIzmeni, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -98,9 +102,11 @@ public class DodajClanaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(cbPaketUsluga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnIzmeni, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -113,6 +119,7 @@ public class DodajClanaForma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnIzmeni;
     private javax.swing.JComboBox<PaketUsluga> cbPaketUsluga;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -163,7 +170,20 @@ public class DodajClanaForma extends javax.swing.JFrame {
         this.txtPrezime = txtPrezime;
     }
 
+    public JButton getBtnIzmeni() {
+        return btnIzmeni;
+    }
+
+    public void setBtnIzmeni(JButton btnIzmeni) {
+        this.btnIzmeni = btnIzmeni;
+    }
+    
+    
     public void addBtnDodajActionListener(ActionListener actionListener) {
         btnDodaj.addActionListener(actionListener);
+    }
+
+    public void addBtnIzmeniActionListener(ActionListener actionListener) {
+        btnIzmeni.addActionListener(actionListener);
     }
 }

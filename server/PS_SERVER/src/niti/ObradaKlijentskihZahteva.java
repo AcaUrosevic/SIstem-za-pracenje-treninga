@@ -71,6 +71,10 @@ public class ObradaKlijentskihZahteva extends Thread{
                         odgovor.setOdgovor(false);
                         odgovor.setOdgovor(Controller.getInstance().kreirajClanaTeretane((ClanTeretane)zahtev.getParametar()));
                         break;
+                    case Operacija.PROMENI_CLANA:
+                        odgovor.setOdgovor(false);
+                        odgovor.setOdgovor(Controller.getInstance().promeniClanaTeretane((ClanTeretane)zahtev.getParametar()));
+                        break;
                     default:
                         System.out.println("greska, losa operacija u zahtevu");
                 }

@@ -79,5 +79,12 @@ public class Komunikacija {
         Odgovor odgovor = (Odgovor) primalac.primi();
         return (boolean) odgovor.getOdgovor();
     }
+
+    public boolean promeniClanaTeretane(ClanTeretane clan) {
+        Zahtev zahtev = new Zahtev(Operacija.PROMENI_CLANA, clan);
+        posiljalac.posalji(zahtev);
+        Odgovor odgovor = (Odgovor) primalac.primi();
+        return (boolean) odgovor.getOdgovor();
+    }
     
 }

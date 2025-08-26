@@ -9,9 +9,12 @@ import forme.modeli.ModelTabeleClanovi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
+import kordinator.Kordinator;
 import model.ClanTeretane;
+import model.PaketUsluga;
 
 /**
  *
@@ -31,6 +34,12 @@ public class PrikazClanovaController {
     }
 
     private void pripremiFormu() {
+        pcf.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        ucitajTabelu();
+        ucitajCBPaketi();
+    }
+    
+    public void ucitajTabelu(){
         List<ClanTeretane> clanovi = Komunikacija.getInstance().ucitajClanove();
         ModelTabeleClanovi mtc = new ModelTabeleClanovi(clanovi);
         pcf.getTblClanovi().setModel(mtc);
@@ -42,7 +51,7 @@ public class PrikazClanovaController {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = pcf.getTblClanovi().getSelectedRow();
                 if(selectedRow == -1){
-                    JOptionPane.showMessageDialog(pcf, "Sistem ne moze da obrise clana teretane", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(pcf, "Clan teretane nije izabran", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ModelTabeleClanovi mtc = (ModelTabeleClanovi) pcf.getTblClanovi().getModel();
@@ -55,7 +64,39 @@ public class PrikazClanovaController {
                 }
                 JOptionPane.showMessageDialog(pcf, "Sistem ne moze da obrise clana teretane", "GRESKA", JOptionPane.ERROR_MESSAGE);
             }
-            
         });
+        pcf.addIzmeniActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 int selectedRow = pcf.getTblClanovi().getSelectedRow();
+                 if(selectedRow == -1){
+                    JOptionPane.showMessageDialog(pcf, "Clan teretane nije izabran", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    return;
+                 }
+                 ModelTabeleClanovi mtc = (ModelTabeleClanovi) pcf.getTblClanovi().getModel();
+                 ClanTeretane clan = mtc.getClanovi().get(selectedRow);
+                 Kordinator.getInstance().otvoriIzmenaFormu(clan);    
+            }
+        });
+        
+        pcf.addPretraziActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String ime = pcf.getTxtIme().getText().trim();
+                String prezime = pcf.getTxtPrezime().getText().trim();
+                PaketUsluga paket = (PaketUsluga) pcf.getCbPaketi().getSelectedItem();
+                ModelTabeleClanovi mtc = (ModelTabeleClanovi) pcf.getTblClanovi().getModel();
+                mtc.petrazi(ime, prezime, paket);
+            }
+        });
+    }
+
+    private void ucitajCBPaketi() {
+        List<PaketUsluga> paketi = Komunikacija.getInstance().ucitajPakete();
+        JComboBox cbPaketi = pcf.getCbPaketi();
+        cbPaketi.addItem(null);
+        for (PaketUsluga p : paketi) {
+            cbPaketi.addItem(p);
+        }
     }
 }

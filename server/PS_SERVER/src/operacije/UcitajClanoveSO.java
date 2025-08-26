@@ -6,6 +6,7 @@ package operacije;
 
 import java.util.List;
 import model.ClanTeretane;
+import model.PaketUsluga;
 
 /**
  *
@@ -20,7 +21,9 @@ public class UcitajClanoveSO extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void izvrsiOperaciju(Object obj, String kljuc) throws Exception {
-        clanovi = broker.getAll((ClanTeretane)obj, kljuc);
+        String paketTabela = new PaketUsluga().vratiNazivTabele();
+        String clanTabela = new ClanTeretane().vratiNazivTabele();
+        clanovi = broker.getAll((ClanTeretane)obj, " JOIN " + paketTabela + " on " + clanTabela + ".paketUsluga = " + paketTabela + ".idPaketUsluga");
     }
 
     public List<ClanTeretane> getClanovi() {

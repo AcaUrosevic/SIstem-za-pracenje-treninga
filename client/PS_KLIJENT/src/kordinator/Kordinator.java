@@ -12,6 +12,7 @@ import kontroleri.DodajClanaController;
 import kontroleri.GlavnaController;
 import kontroleri.LoginController;
 import kontroleri.PrikazClanovaController;
+import model.ClanTeretane;
 import model.Trener;
 
 /**
@@ -52,9 +53,15 @@ public class Kordinator {
     }
     
     public void orvoriFormuDodajClana() {
-         dcController = new DodajClanaController(new DodajClanaForma());
+         dcController = new DodajClanaController(new DodajClanaForma(),null);
          dcController.otvoriFormu();
     }
+    
+      public void otvoriIzmenaFormu(ClanTeretane clanZaIzmenu) {
+          dcController = new DodajClanaController(new DodajClanaForma(), clanZaIzmenu);
+          dcController.otvoriFormuIzmena();
+      }
+    
 
     public Trener getUlogovani() {
         return ulogovani;
@@ -63,6 +70,8 @@ public class Kordinator {
     public void setUlogovani(Trener ulogovani) {
         this.ulogovani = ulogovani;
     }
-
     
+    public void osveziTabeluClanovi(){
+        pcController.ucitajTabelu();
+    }
 }

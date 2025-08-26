@@ -13,6 +13,7 @@ import model.Trener;
 import operacije.KreirajClanaTeretaneSO;
 import operacije.LoginOperacija;
 import operacije.ObrisiClanaTeretaneSO;
+import operacije.PromeniClanaTeretaneSO;
 import operacije.UcitajClanoveSO;
 import operacije.UcitajPaketeSO;
 
@@ -68,6 +69,17 @@ public class Controller {
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean promeniClanaTeretane(ClanTeretane clanTeretane) {
+        PromeniClanaTeretaneSO operacija = new PromeniClanaTeretaneSO();
+        try {
+            operacija.izvrsi(clanTeretane, "");
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }

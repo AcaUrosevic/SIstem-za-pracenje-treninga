@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,8 +91,15 @@ public class ClanTeretane implements ApstraktniDomenskiObjekat{
             String ime = rs.getString("clan_teretane.ime");
             String prezime = rs.getString("clan_teretane.prezime");
             String email = rs.getString("clan_teretane.email");
+            int idPaketUsluga = rs.getInt("paket_usluga.idPaketUsluga");
+            LocalDate datumUplate = rs.getDate("paket_usluga.datumUplate").toLocalDate();
+            int trajanje = rs.getInt("paket_usluga.trajanje");
+            double cena = rs.getDouble("paket_usluga.cena");
+            String naziv = rs.getString("paket_usluga.naziv");
+            String opis = rs.getString("paket_usluga.opis");
+            PaketUsluga pu = new PaketUsluga(idPaketUsluga, datumUplate, trajanje, cena, naziv, opis);
             
-            ClanTeretane ct = new ClanTeretane(id, ime, prezime, email, null);
+            ClanTeretane ct = new ClanTeretane(id, ime, prezime, email, pu);
             lista.add(ct);
         }
         

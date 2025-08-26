@@ -61,6 +61,11 @@ public class GlavnaForma extends javax.swing.JFrame {
         menuClanovi.add(miPrikaziClanove);
 
         miDodajClana.setText("dodaj");
+        miDodajClana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDodajClanaActionPerformed(evt);
+            }
+        });
         menuClanovi.add(miDodajClana);
 
         jMenuBar1.add(menuClanovi);
@@ -104,6 +109,10 @@ public class GlavnaForma extends javax.swing.JFrame {
     private void miPrikaziClanoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPrikaziClanoveActionPerformed
         Kordinator.getInstance().otvoriPrikazClanovaFormu();
     }//GEN-LAST:event_miPrikaziClanoveActionPerformed
+
+    private void miDodajClanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDodajClanaActionPerformed
+        Kordinator.getInstance().orvoriFormuDodajClana();
+    }//GEN-LAST:event_miDodajClanaActionPerformed
 
     /**
      * @return 

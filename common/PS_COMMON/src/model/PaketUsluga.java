@@ -95,14 +95,14 @@ public class PaketUsluga implements ApstraktniDomenskiObjekat{
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while(rs.next()){
-            int id = rs.getInt("paket_usluga.idClanTeretane");
+            int id = rs.getInt("paket_usluga.idPaketUsluga");
             LocalDate datumUplate = rs.getDate("paket_usluga.datumUplate").toLocalDate();
             int trajanje = rs.getInt("paket_usluga.trajanje");
             double cena = rs.getDouble("paket_usluga.cena");
             String naziv = rs.getString("paket_usluga.naziv");
             String opis = rs.getString("paket_usluga.opis");
             
-            PaketUsluga pu = new PaketUsluga(idPaketUsluga, datumUplate, trajanje, cena, naziv, opis);
+            PaketUsluga pu = new PaketUsluga(id, datumUplate, trajanje, cena, naziv, opis);
             lista.add(pu);
         }
         
@@ -111,8 +111,11 @@ public class PaketUsluga implements ApstraktniDomenskiObjekat{
 
     @Override
     public String toString() {
-        return "PaketUsluga{" + "naziv=" + naziv + '}';
+        return "PaketUsluga{" + "idPaketUsluga=" + idPaketUsluga + ", datumUplate=" + datumUplate + ", trajanje=" + trajanje + ", cena=" + cena + ", naziv=" + naziv + ", opis=" + opis + '}';
     }
+
+   
+  
     
     
 

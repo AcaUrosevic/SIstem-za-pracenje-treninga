@@ -5,14 +5,14 @@
 package operacije;
 
 import java.util.List;
-import model.ClanTeretane;
+import model.PaketUsluga;
 
 /**
  *
  * @author Aca
  */
-public class UcitajClanoveOperacija extends ApstraktnaGenerickaOperacija{
-    List<ClanTeretane> clanovi;
+public class UcitajPaketeSO extends ApstraktnaGenerickaOperacija{
+    List<PaketUsluga> paketi;
     
     @Override
     protected void preduslovi(Object obj) throws Exception {
@@ -20,11 +20,12 @@ public class UcitajClanoveOperacija extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void izvrsiOperaciju(Object obj, String kljuc) throws Exception {
-        clanovi = broker.getAll((ClanTeretane)obj, kljuc);
+        paketi = broker.getAll((PaketUsluga)obj, kljuc);
     }
 
-    public List<ClanTeretane> getClanovi() {
-        return clanovi;
+    public List<PaketUsluga> getPaketi() {
+        return paketi;
     }
-
+    
+    
 }

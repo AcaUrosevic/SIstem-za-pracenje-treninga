@@ -7,6 +7,7 @@ package niti;
 import controller.Controller;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import komunikacija.Posiljalac;
 import komunikacija.Primalac;
 import komunikacija.Zahtev;
 import model.ClanTeretane;
+import model.PaketUsluga;
 import model.Trener;
 
 /**
@@ -42,6 +44,10 @@ public class ObradaKlijentskihZahteva extends Thread{
             try {
                 Zahtev zahtev = (Zahtev)primalac.primi();
                 Odgovor odgovor = new Odgovor();
+                if (zahtev == null) {
+                    prekini();
+                    return;
+                }
                 
                 switch (zahtev.getOperacija()) {
                     case Operacija.LOGIN:
@@ -57,6 +63,14 @@ public class ObradaKlijentskihZahteva extends Thread{
                         boolean obrisan = Controller.getInstance().obrisiClanaTeretane((ClanTeretane)zahtev.getParametar());
                         odgovor.setOdgovor(obrisan);
                         break;
+                    case Operacija.UCITAJ_PAKETE:
+                        List<PaketUsluga> paketi = Controller.getInstance().vratiListuPaketa();
+                        odgovor.setOdgovor(paketi);
+                        break;
+                    case Operacija.DODAJ_CLANA:
+                        odgovor.setOdgovor(false);
+                        odgovor.setOdgovor(Controller.getInstance().kreirajClanaTeretane((ClanTeretane)zahtev.getParametar()));
+                        break;
                     default:
                         System.out.println("greska, losa operacija u zahtevu");
                 }
@@ -64,7 +78,7 @@ public class ObradaKlijentskihZahteva extends Thread{
             } catch (Exception ex) {
                 if(kraj) return;
                 Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } 
         }
     }
     
@@ -73,7 +87,6 @@ public class ObradaKlijentskihZahteva extends Thread{
         try {
             socket.close();
         } catch (IOException ex) {
-            Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
         }
         interrupt();
     }

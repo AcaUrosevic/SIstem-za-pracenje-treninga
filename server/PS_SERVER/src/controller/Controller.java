@@ -8,10 +8,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ClanTeretane;
+import model.PaketUsluga;
 import model.Trener;
+import operacije.KreirajClanaTeretaneSO;
 import operacije.LoginOperacija;
 import operacije.ObrisiClanaTeretaneSO;
-import operacije.UcitajClanoveOperacija;
+import operacije.UcitajClanoveSO;
+import operacije.UcitajPaketeSO;
 
 /**
  *
@@ -37,7 +40,7 @@ public class Controller {
     }
 
     public List<ClanTeretane> vratiListuClanova() throws Exception {
-        UcitajClanoveOperacija operacija = new UcitajClanoveOperacija();
+        UcitajClanoveSO operacija = new UcitajClanoveSO();
         operacija.izvrsi(new ClanTeretane(), "");
         return operacija.getClanovi();
     }
@@ -48,6 +51,23 @@ public class Controller {
             operacija.izvrsi(clanTeretane, "");
             return true;
         } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    public List<PaketUsluga> vratiListuPaketa() throws Exception {
+        UcitajPaketeSO operacija = new UcitajPaketeSO();
+        operacija.izvrsi(new PaketUsluga(), "");
+        return operacija.getPaketi();
+    }
+
+    public boolean kreirajClanaTeretane(ClanTeretane clanTeretane) {
+        KreirajClanaTeretaneSO operacija = new KreirajClanaTeretaneSO();
+        try {
+            operacija.izvrsi(clanTeretane, "");
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
     }

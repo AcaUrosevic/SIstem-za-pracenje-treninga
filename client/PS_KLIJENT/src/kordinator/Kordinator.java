@@ -4,9 +4,11 @@
  */
 package kordinator;
 
+import forme.DodajClanaForma;
 import forme.GlavnaForma;
 import forme.LoginForma;
 import forme.PrikazClanovaForma;
+import kontroleri.DodajClanaController;
 import kontroleri.GlavnaController;
 import kontroleri.LoginController;
 import kontroleri.PrikazClanovaController;
@@ -22,6 +24,7 @@ public class Kordinator {
     LoginController loginController;
     GlavnaController glavnaController;
     PrikazClanovaController pcController;
+    DodajClanaController dcController;
     
     private Kordinator(){
         
@@ -47,6 +50,11 @@ public class Kordinator {
         pcController = new PrikazClanovaController(new PrikazClanovaForma());
         pcController.otvoriFormu();
     }
+    
+    public void orvoriFormuDodajClana() {
+         dcController = new DodajClanaController(new DodajClanaForma());
+         dcController.otvoriFormu();
+    }
 
     public Trener getUlogovani() {
         return ulogovani;
@@ -55,4 +63,6 @@ public class Kordinator {
     public void setUlogovani(Trener ulogovani) {
         this.ulogovani = ulogovani;
     }
+
+    
 }

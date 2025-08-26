@@ -30,6 +30,13 @@ public class ClanTeretane implements ApstraktniDomenskiObjekat{
         this.paketUsluga = paketUsluga;
     }
 
+    public ClanTeretane(String ime, String prezime, String email, PaketUsluga paket) {
+        this.ime = ime;
+        this.prezime = prezime;
+        this.email = email;
+        this.paketUsluga = paket;
+    }
+
     public int getIdClanTeretane() {
         return idClanTeretane;
     }

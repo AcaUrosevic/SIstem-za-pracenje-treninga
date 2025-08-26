@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ClanTeretane;
+import model.PaketUsluga;
 import model.Trener;
 
 /**
@@ -60,6 +61,20 @@ public class Komunikacija {
 
     public boolean obrisiPacijenta(ClanTeretane clan) {
         Zahtev zahtev = new Zahtev(Operacija.OBRISI_CLANA, clan);
+        posiljalac.posalji(zahtev);
+        Odgovor odgovor = (Odgovor) primalac.primi();
+        return (boolean) odgovor.getOdgovor();
+    }
+
+    public List<PaketUsluga> ucitajPakete() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_PAKETE,null);
+        posiljalac.posalji(zahtev);
+        Odgovor odgovor = (Odgovor) primalac.primi();
+        return (List<PaketUsluga>) odgovor.getOdgovor();
+    }
+
+    public boolean dodajClanaTeretane(ClanTeretane noviClan) {
+        Zahtev zahtev = new Zahtev(Operacija.DODAJ_CLANA,noviClan);
         posiljalac.posalji(zahtev);
         Odgovor odgovor = (Odgovor) primalac.primi();
         return (boolean) odgovor.getOdgovor();

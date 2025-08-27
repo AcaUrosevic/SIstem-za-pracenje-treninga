@@ -105,4 +105,11 @@ public class Vezba implements ApstraktniDomenskiObjekat{
     public String vratiVrednostiZaIzmenu() {
         return "naziv='" + naziv + "', opis='" + opis + "', napor=" + napor;
     }
+
+    @Override
+    public String toString() {
+        return naziv;
+    }
+    
+    
 }

@@ -130,6 +130,11 @@ public class ClanTeretane implements ApstraktniDomenskiObjekat{
     public String vratiVrednostiZaIzmenu() {
         return "ime='" + ime + "', prezime='" + prezime + "', email='" + email + "', paketUsluga=" + paketUsluga.getIdPaketUsluga();
     }
+
+    @Override
+    public String toString() {
+        return  ime + " " + prezime;
+    }
     
     
 }

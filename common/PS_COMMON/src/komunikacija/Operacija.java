@@ -16,6 +16,9 @@ public enum Operacija implements Serializable{
     OBRISI_CLANA, 
     UCITAJ_PAKETE, 
     DODAJ_CLANA, 
-    PROMENI_CLANA,
+    PROMENI_CLANA, 
+    VRATI_EVIDENCIJE, 
+    UCITAJ_TRENERE, 
+    VRATI_VEZBE, KREIRAJ_EVIDENCIJU, KREIRAJ_STAVKU,
     
 }

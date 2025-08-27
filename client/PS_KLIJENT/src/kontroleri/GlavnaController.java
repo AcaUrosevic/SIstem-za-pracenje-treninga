@@ -13,10 +13,10 @@ import model.Trener;
  * @author Aca
  */
 public class GlavnaController {
-    GlavnaForma gf;
+    GlavnaForma forma;
 
     public GlavnaController(GlavnaForma gf) {
-        this.gf = gf;
+        this.forma = gf;
         addActionListeners();
     }
 
@@ -24,8 +24,8 @@ public class GlavnaController {
         Trener t = Kordinator.getInstance().getUlogovani();
         String ime = t.getIme();
         String prezime = t.getPrezime();
-        gf.getLblUlogovani().setText(ime + " " + prezime);
-        gf.setVisible(true);
+        forma.getLblUlogovani().setText(ime + " " + prezime);
+        forma.setVisible(true);
     }
 
     private void addActionListeners() {

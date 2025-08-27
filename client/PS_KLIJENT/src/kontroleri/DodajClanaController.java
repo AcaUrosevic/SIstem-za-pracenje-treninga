@@ -8,8 +8,6 @@ import forme.DodajClanaForma;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
@@ -22,87 +20,87 @@ import model.PaketUsluga;
  * @author Aca
  */
 public class DodajClanaController {
-    DodajClanaForma dcf;
+    DodajClanaForma forma;
     ClanTeretane clanZaIzmenu;
 
     public DodajClanaController(DodajClanaForma dcf, ClanTeretane clanZaIzmenu) {
-        this.dcf = dcf;
+        this.forma = dcf;
         this.clanZaIzmenu = clanZaIzmenu;
         addActionListeners();
     }
 
     private void addActionListeners() {
-        dcf.addBtnDodajActionListener(new ActionListener() {
+        forma.addBtnDodajActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String ime = dcf.getTxtIme().getText();
-                String prezime = dcf.getTxtPrezime().getText();
-                String email = dcf.getTxtEmail().getText();
-                PaketUsluga paket = (PaketUsluga) dcf.getCbPaketUsluga().getSelectedItem();
+                String ime = forma.getTxtIme().getText();
+                String prezime = forma.getTxtPrezime().getText();
+                String email = forma.getTxtEmail().getText();
+                PaketUsluga paket = (PaketUsluga) forma.getCbPaketUsluga().getSelectedItem();
                 
                 ClanTeretane noviClan = new ClanTeretane(ime, prezime, email, paket);
                 boolean dodatClan = Komunikacija.getInstance().dodajClanaTeretane(noviClan);
                 if(dodatClan){
-                    JOptionPane.showMessageDialog(dcf, "Sistem je zapamtio clana teretane", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Sistem je zapamtio clana teretane", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(dcf, "Sistem ne moze da kreira clana teretane", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Sistem ne moze da kreira clana teretane", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
-                dcf.dispose();
+                forma.dispose();
             }
         });
         
-        dcf.addBtnIzmeniActionListener(new ActionListener() {
+        forma.addBtnIzmeniActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String ime = dcf.getTxtIme().getText();
-                String prezime = dcf.getTxtPrezime().getText();
-                String email = dcf.getTxtEmail().getText();
-                PaketUsluga paket = (PaketUsluga) dcf.getCbPaketUsluga().getSelectedItem();
+                String ime = forma.getTxtIme().getText();
+                String prezime = forma.getTxtPrezime().getText();
+                String email = forma.getTxtEmail().getText();
+                PaketUsluga paket = (PaketUsluga) forma.getCbPaketUsluga().getSelectedItem();
                 
                 ClanTeretane izmenjeni = new ClanTeretane(clanZaIzmenu.getIdClanTeretane(),ime, prezime, email, paket);
                 boolean izmenjen = Komunikacija.getInstance().promeniClanaTeretane(izmenjeni);
                 if(izmenjen){
-                    JOptionPane.showMessageDialog(dcf, "Sistem je zapamtio clana teretane", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Sistem je zapamtio clana teretane", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
-                JOptionPane.showMessageDialog(dcf, "Sistem ne moze da nadje clana teretane po zadatom kriterijumu", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(forma, "Sistem ne moze da nadje clana teretane po zadatom kriterijumu", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
                 Kordinator.getInstance().osveziTabeluClanovi();
-                dcf.dispose();
+                forma.dispose();
             }
         });
     }
     
     public void otvoriFormu(){
         pripremiFormu();
-        dcf.setVisible(true);
+        forma.setVisible(true);
     }
 
     private void pripremiFormu() {
-        dcf.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        dcf.getBtnIzmeni().setVisible(false);
+        forma.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        forma.getBtnIzmeni().setVisible(false);
         ucitajPaketeUsluga();
     }
 
     public void otvoriFormuIzmena() {
         pripremiFormuIzmena();
-        dcf.setVisible(true);
+        forma.setVisible(true);
     }
     
     private void pripremiFormuIzmena() {
-        dcf.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        dcf.getBtnDodaj().setVisible(false);
+        forma.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        forma.getBtnDodaj().setVisible(false);
         ucitajPaketeUsluga();
-        dcf.getTxtIme().setText(clanZaIzmenu.getIme());
-        dcf.getTxtPrezime().setText(clanZaIzmenu.getPrezime());
-        dcf.getTxtEmail().setText(clanZaIzmenu.getEmail());
-        dcf.getCbPaketUsluga().setSelectedItem(clanZaIzmenu.getPaketUsluga());
+        forma.getTxtIme().setText(clanZaIzmenu.getIme());
+        forma.getTxtPrezime().setText(clanZaIzmenu.getPrezime());
+        forma.getTxtEmail().setText(clanZaIzmenu.getEmail());
+        forma.getCbPaketUsluga().setSelectedItem(clanZaIzmenu.getPaketUsluga());
     }
     
     private void ucitajPaketeUsluga(){
         List<PaketUsluga> paketi = Komunikacija.getInstance().ucitajPakete();
-        JComboBox cbPaketi = dcf.getCbPaketUsluga();
+        JComboBox cbPaketi = forma.getCbPaketUsluga();
         for (PaketUsluga pu : paketi) {
             cbPaketi.addItem(pu);
         }

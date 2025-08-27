@@ -29,6 +29,13 @@ public class Trener implements ApstraktniDomenskiObjekat{
         this.sifra = sifra;
     }
     
+    public Trener(int idTrener, String ime, String prezime, String email) {
+        this.idTrener = idTrener;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.email = email;
+    }
+    
     public Trener(int idTrener, String ime, String prezime, String email, String korisnickoIme, String sifra) {
         this.idTrener = idTrener;
         this.ime = ime;
@@ -88,7 +95,7 @@ public class Trener implements ApstraktniDomenskiObjekat{
 
     @Override
     public String toString() {
-        return "Trener{" + "ime=" + ime + ", prezime=" + prezime + ", email=" + email + '}';
+        return ime + " " + prezime;
     }
 
     @Override

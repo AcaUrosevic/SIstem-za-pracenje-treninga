@@ -41,6 +41,9 @@ public class GlavnaForma extends javax.swing.JFrame {
         menuTreneri = new javax.swing.JMenu();
         miPrikaziTrenere = new javax.swing.JMenuItem();
         miDodajTrenera = new javax.swing.JMenuItem();
+        menuEvidencije = new javax.swing.JMenu();
+        miPrikaziEvidencije = new javax.swing.JMenuItem();
+        dodajEvidenciju = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -80,6 +83,26 @@ public class GlavnaForma extends javax.swing.JFrame {
 
         jMenuBar1.add(menuTreneri);
 
+        menuEvidencije.setText("Evidencije Treninga");
+
+        miPrikaziEvidencije.setText("prikazi");
+        miPrikaziEvidencije.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPrikaziEvidencijeActionPerformed(evt);
+            }
+        });
+        menuEvidencije.add(miPrikaziEvidencije);
+
+        dodajEvidenciju.setText("dodaj");
+        dodajEvidenciju.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dodajEvidencijuActionPerformed(evt);
+            }
+        });
+        menuEvidencije.add(dodajEvidenciju);
+
+        jMenuBar1.add(menuEvidencije);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,6 +136,14 @@ public class GlavnaForma extends javax.swing.JFrame {
     private void miDodajClanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDodajClanaActionPerformed
         Kordinator.getInstance().orvoriFormuDodajClana();
     }//GEN-LAST:event_miDodajClanaActionPerformed
+
+    private void miPrikaziEvidencijeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPrikaziEvidencijeActionPerformed
+        Kordinator.getInstance().otvoriPrikazEvidencijaFormu();
+    }//GEN-LAST:event_miPrikaziEvidencijeActionPerformed
+
+    private void dodajEvidencijuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajEvidencijuActionPerformed
+        Kordinator.getInstance().otvoriFormuDodajEvidenciju();
+    }//GEN-LAST:event_dodajEvidencijuActionPerformed
 
     /**
      * @return 
@@ -179,15 +210,18 @@ public class GlavnaForma extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem dodajEvidenciju;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lblUlogovani;
     private javax.swing.JMenu menuClanovi;
+    private javax.swing.JMenu menuEvidencije;
     private javax.swing.JMenu menuTreneri;
     private javax.swing.JMenuItem miDodajClana;
     private javax.swing.JMenuItem miDodajTrenera;
     private javax.swing.JMenuItem miPrikaziClanove;
+    private javax.swing.JMenuItem miPrikaziEvidencije;
     private javax.swing.JMenuItem miPrikaziTrenere;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,37 +18,37 @@ import model.Trener;
  */
 public class LoginController {
     
-    final LoginForma lf;
+    final LoginForma forma;
 
     public LoginController(LoginForma lf) {
-        this.lf = lf;
+        this.forma = lf;
         addActionListeners();
     }
 
     private void addActionListeners() {
-        lf.loginAddActionListener(new ActionListener() {
+        forma.loginAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = lf.getTxtUsername().getText().trim();
-                String password = String.valueOf(lf.getPassPassword().getPassword());
+                String username = forma.getTxtUsername().getText().trim();
+                String password = String.valueOf(forma.getPassPassword().getPassword());
                 
                 Komunikacija.getInstance().konekcija();
                 Trener trener = Komunikacija.getInstance().login(username, password);
                 
                 if(trener == null){
-                    JOptionPane.showMessageDialog(lf, "Korisnicko ime i sifra nisu ispravni", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Korisnicko ime i sifra nisu ispravni", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                JOptionPane.showMessageDialog(lf, "Korisnicko ima i sifra su ispravni", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(forma, "Korisnicko ima i sifra su ispravni", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                 Kordinator.getInstance().setUlogovani(trener);
                 Kordinator.getInstance().otvoriGlavnuFormu();
-                lf.dispose();
+                forma.dispose();
             }
         });
     }
 
     public void otvoriFormu() {
-        lf.setVisible(true);
+        forma.setVisible(true);
     }
     
     

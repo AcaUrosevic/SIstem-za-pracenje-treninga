@@ -7,7 +7,6 @@ package niti;
 import controller.Controller;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +16,11 @@ import komunikacija.Posiljalac;
 import komunikacija.Primalac;
 import komunikacija.Zahtev;
 import model.ClanTeretane;
+import model.EvidencijaTreninga;
 import model.PaketUsluga;
+import model.StavkaEvidencijeTreninga;
 import model.Trener;
+import model.Vezba;
 
 /**
  *
@@ -74,6 +76,27 @@ public class ObradaKlijentskihZahteva extends Thread{
                     case Operacija.PROMENI_CLANA:
                         odgovor.setOdgovor(false);
                         odgovor.setOdgovor(Controller.getInstance().promeniClanaTeretane((ClanTeretane)zahtev.getParametar()));
+                        break;
+                    case Operacija.VRATI_EVIDENCIJE:
+                        List<EvidencijaTreninga> evidencije = Controller.getInstance().vratiListuEvidencija();
+                        odgovor.setOdgovor(evidencije);
+                        break;
+                    case Operacija.UCITAJ_TRENERE:
+                        List<Trener> treneri = Controller.getInstance().vratiListuTrenera();
+                        odgovor.setOdgovor(treneri);
+                        break;
+                    case Operacija.VRATI_VEZBE:
+                        List<Vezba> vezbe = Controller.getInstance().vratiListuVezbi();
+                        odgovor.setOdgovor(vezbe);
+                        break;
+                    case Operacija.KREIRAJ_EVIDENCIJU:
+                        int idKreiraneEvidencije = Controller.getInstance().kreirajEvidencijuTreninga((EvidencijaTreninga)zahtev.getParametar());
+                        odgovor.setOdgovor(idKreiraneEvidencije);
+                        break;
+                    case Operacija.KREIRAJ_STAVKU:
+                        odgovor.setOdgovor(false);
+                        boolean uspesno = Controller.getInstance().kreirajStavku((StavkaEvidencijeTreninga)zahtev.getParametar());
+                        odgovor.setOdgovor(uspesno);
                         break;
                     default:
                         System.out.println("greska, losa operacija u zahtevu");

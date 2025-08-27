@@ -8,14 +8,22 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ClanTeretane;
+import model.EvidencijaTreninga;
 import model.PaketUsluga;
+import model.StavkaEvidencijeTreninga;
 import model.Trener;
+import model.Vezba;
 import operacije.KreirajClanaTeretaneSO;
+import operacije.KreirajEvidencijuTreningaSO;
+import operacije.KreirajStavkuEvidencijeTreningaSO;
 import operacije.LoginOperacija;
 import operacije.ObrisiClanaTeretaneSO;
 import operacije.PromeniClanaTeretaneSO;
 import operacije.UcitajClanoveSO;
 import operacije.UcitajPaketeSO;
+import operacije.VratiListuEvidencijaTreningaSO;
+import operacije.VratiListuTreneraSO;
+import operacije.VratiListuVezbiSO;
 
 /**
  *
@@ -77,6 +85,41 @@ public class Controller {
         PromeniClanaTeretaneSO operacija = new PromeniClanaTeretaneSO();
         try {
             operacija.izvrsi(clanTeretane, "");
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public List<EvidencijaTreninga> vratiListuEvidencija() throws Exception {
+        VratiListuEvidencijaTreningaSO operacija = new VratiListuEvidencijaTreningaSO();
+        operacija.izvrsi(new EvidencijaTreninga(), "");
+        return operacija.getEvidencije();
+    }
+
+    public List<Trener> vratiListuTrenera() throws Exception {
+        VratiListuTreneraSO operacija = new VratiListuTreneraSO();
+        operacija.izvrsi(new Trener(), "");
+        return operacija.getTreneri();
+    }
+
+    public List<Vezba> vratiListuVezbi() throws Exception {
+        VratiListuVezbiSO operacija = new VratiListuVezbiSO();
+        operacija.izvrsi(new Vezba(), "");
+        return operacija.getVezbe();
+    }
+
+    public int kreirajEvidencijuTreninga(EvidencijaTreninga evidencijaTreninga) throws Exception {
+        KreirajEvidencijuTreningaSO operacija = new KreirajEvidencijuTreningaSO();
+        operacija.izvrsi(evidencijaTreninga, "");
+        return operacija.getIdKreirana();
+    }
+
+    public boolean kreirajStavku(StavkaEvidencijeTreninga parametar) {
+        KreirajStavkuEvidencijeTreningaSO operacija = new KreirajStavkuEvidencijeTreningaSO();
+        try {
+            operacija.izvrsi(parametar, "");
             return true;
         } catch (Exception ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);

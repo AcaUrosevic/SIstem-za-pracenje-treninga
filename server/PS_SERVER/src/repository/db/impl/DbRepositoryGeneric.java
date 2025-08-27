@@ -64,5 +64,26 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
     public List<ApstraktniDomenskiObjekat> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public int addAndReturnId(ApstraktniDomenskiObjekat param) throws Exception {
+        String upit = "INSERT INTO " + param.vratiNazivTabele() + " (" +
+                    param.vratiKoloneZaUbacivanje() + ") VALUES(" +
+                    param.vratiVrednostiZaUbacivanje() + ")";
+        System.out.println(upit);
+        Statement s = DbConnectionFactory.getInstance().getConnection().createStatement();
+        s.executeUpdate(upit, Statement.RETURN_GENERATED_KEYS);
+        ResultSet rs = s.getGeneratedKeys();
+        int id = -1;
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+        rs.close();
+        s.close();
+        if (id == -1) throw new Exception("Baza nije vratila generated key.");
+        return id;
+    }
+    
+    
     
 }

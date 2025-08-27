@@ -21,20 +21,20 @@ import model.PaketUsluga;
  * @author Aca
  */
 public class PrikazClanovaController {
-    PrikazClanovaForma pcf;
+    PrikazClanovaForma forma;
 
     public PrikazClanovaController(PrikazClanovaForma pcf) {
-        this.pcf = pcf;
+        this.forma = pcf;
         addActionListeners();
     }
     
     public void otvoriFormu() {
         pripremiFormu();
-        pcf.setVisible(true);
+        forma.setVisible(true);
     }
 
     private void pripremiFormu() {
-        pcf.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        forma.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         ucitajTabelu();
         ucitajCBPaketi();
     }
@@ -42,50 +42,50 @@ public class PrikazClanovaController {
     public void ucitajTabelu(){
         List<ClanTeretane> clanovi = Komunikacija.getInstance().ucitajClanove();
         ModelTabeleClanovi mtc = new ModelTabeleClanovi(clanovi);
-        pcf.getTblClanovi().setModel(mtc);
+        forma.getTblClanovi().setModel(mtc);
     }
 
     private void addActionListeners() {
-        pcf.addObrisiActionListener(new ActionListener(){
+        forma.addObrisiActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = pcf.getTblClanovi().getSelectedRow();
+                int selectedRow = forma.getTblClanovi().getSelectedRow();
                 if(selectedRow == -1){
-                    JOptionPane.showMessageDialog(pcf, "Clan teretane nije izabran", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Clan teretane nije izabran", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                ModelTabeleClanovi mtc = (ModelTabeleClanovi) pcf.getTblClanovi().getModel();
+                ModelTabeleClanovi mtc = (ModelTabeleClanovi) forma.getTblClanovi().getModel();
                 ClanTeretane clan = mtc.getClanovi().get(selectedRow);
                 boolean obrisan = Komunikacija.getInstance().obrisiPacijenta(clan);
                 if(obrisan){
-                    JOptionPane.showMessageDialog(pcf, "Sistem je obrisao clana teretane", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Sistem je obrisao clana teretane", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                     mtc.removeAt(selectedRow);
                     return;
                 }
-                JOptionPane.showMessageDialog(pcf, "Sistem ne moze da obrise clana teretane", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(forma, "Sistem ne moze da obrise clana teretane", "GRESKA", JOptionPane.ERROR_MESSAGE);
             }
         });
-        pcf.addIzmeniActionListener(new ActionListener() {
+        forma.addIzmeniActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 int selectedRow = pcf.getTblClanovi().getSelectedRow();
+                 int selectedRow = forma.getTblClanovi().getSelectedRow();
                  if(selectedRow == -1){
-                    JOptionPane.showMessageDialog(pcf, "Clan teretane nije izabran", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Clan teretane nije izabran", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     return;
                  }
-                 ModelTabeleClanovi mtc = (ModelTabeleClanovi) pcf.getTblClanovi().getModel();
+                 ModelTabeleClanovi mtc = (ModelTabeleClanovi) forma.getTblClanovi().getModel();
                  ClanTeretane clan = mtc.getClanovi().get(selectedRow);
                  Kordinator.getInstance().otvoriIzmenaFormu(clan);    
             }
         });
         
-        pcf.addPretraziActionListener(new ActionListener() {
+        forma.addPretraziActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String ime = pcf.getTxtIme().getText().trim();
-                String prezime = pcf.getTxtPrezime().getText().trim();
-                PaketUsluga paket = (PaketUsluga) pcf.getCbPaketi().getSelectedItem();
-                ModelTabeleClanovi mtc = (ModelTabeleClanovi) pcf.getTblClanovi().getModel();
+                String ime = forma.getTxtIme().getText().trim();
+                String prezime = forma.getTxtPrezime().getText().trim();
+                PaketUsluga paket = (PaketUsluga) forma.getCbPaketi().getSelectedItem();
+                ModelTabeleClanovi mtc = (ModelTabeleClanovi) forma.getTblClanovi().getModel();
                 mtc.petrazi(ime, prezime, paket);
             }
         });
@@ -93,7 +93,7 @@ public class PrikazClanovaController {
 
     private void ucitajCBPaketi() {
         List<PaketUsluga> paketi = Komunikacija.getInstance().ucitajPakete();
-        JComboBox cbPaketi = pcf.getCbPaketi();
+        JComboBox cbPaketi = forma.getCbPaketi();
         cbPaketi.addItem(null);
         for (PaketUsluga p : paketi) {
             cbPaketi.addItem(p);

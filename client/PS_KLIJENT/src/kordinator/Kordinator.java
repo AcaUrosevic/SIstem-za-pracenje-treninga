@@ -12,6 +12,7 @@ import forme.LoginForma;
 import forme.PrikazClanovaForma;
 import forme.PrikazEvidencijaForma;
 import java.util.ArrayList;
+import java.util.List;
 import kontroleri.DodajClanaController;
 import kontroleri.DodajEvidencijuController;
 import kontroleri.DodajStavkuController;
@@ -20,6 +21,7 @@ import kontroleri.LoginController;
 import kontroleri.PrikazClanovaController;
 import kontroleri.PrikazEvidencijaController;
 import model.ClanTeretane;
+import model.EvidencijaTreninga;
 import model.StavkaEvidencijeTreninga;
 import model.Trener;
 
@@ -87,6 +89,11 @@ public class Kordinator {
         dsController = new DodajStavkuController(new DodajStavkuForma());
         dsController.otvoriFormu();
     }
+
+     public void otvoriFormuIzmenaEvidencije(EvidencijaTreninga evidencija, List<StavkaEvidencijeTreninga> stavke) {
+        deController = new DodajEvidencijuController(new DodajEvidencijuForma(), evidencija, stavke);
+        deController.otvoriFormuIzmena();
+     }
     
 
     public Trener getUlogovani() {
@@ -104,6 +111,16 @@ public class Kordinator {
     public boolean dodajStavku(StavkaEvidencijeTreninga stavka) {
         return deController.dodajStavku(stavka);
     }
+
+    public void osveziTabeluEvidencija() {
+        peController.ucitajTabeluEvidencija();
+    }
+
+    public void osveziTabeluStavkiPrikaz() {
+        peController.osveziTabeluStavki(new ArrayList<>());
+    }
+
+   
 
    
 

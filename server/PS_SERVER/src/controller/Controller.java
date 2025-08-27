@@ -15,13 +15,14 @@ import model.Trener;
 import model.Vezba;
 import operacije.KreirajClanaTeretaneSO;
 import operacije.KreirajEvidencijuTreningaSO;
-import operacije.KreirajStavkuEvidencijeTreningaSO;
 import operacije.LoginOperacija;
 import operacije.ObrisiClanaTeretaneSO;
 import operacije.PromeniClanaTeretaneSO;
+import operacije.PromeniEvidencijuSO;
 import operacije.UcitajClanoveSO;
 import operacije.UcitajPaketeSO;
 import operacije.VratiListuEvidencijaTreningaSO;
+import operacije.VratiListuStavkiSO;
 import operacije.VratiListuTreneraSO;
 import operacije.VratiListuVezbiSO;
 
@@ -116,13 +117,19 @@ public class Controller {
         return operacija.getIdKreirana();
     }
 
-    public boolean kreirajStavku(StavkaEvidencijeTreninga parametar) {
-        KreirajStavkuEvidencijeTreningaSO operacija = new KreirajStavkuEvidencijeTreningaSO();
+    public List<StavkaEvidencijeTreninga> vratiListuStavki(EvidencijaTreninga evidencijaTreninga) throws Exception {
+        VratiListuStavkiSO operacija = new VratiListuStavkiSO();
+        operacija.izvrsi(evidencijaTreninga, "");
+        return operacija.getStavke();
+    }
+
+    public boolean promeniEvidenciju(EvidencijaTreninga evidencijaTreninga) {
+        PromeniEvidencijuSO operacija = new PromeniEvidencijuSO();
         try {
-            operacija.izvrsi(parametar, "");
+            operacija.izvrsi(evidencijaTreninga, "");
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
             return false;
         }
     }

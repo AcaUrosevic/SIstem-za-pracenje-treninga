@@ -5,8 +5,10 @@
 package model;
 
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -100,14 +102,26 @@ public class StavkaEvidencijeTreninga implements ApstraktniDomenskiObjekat{
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while(rs.next()){
             int rb = rs.getInt("stavka_evidencije_treninga.rb");
-            //evidencija
             int brojPonavljanja = rs.getInt("stavka_evidencije_treninga.brojPonavljanja");
             int brojSerija = rs.getInt("stavka_evidencije_treninga.brojSerija");
             double tezina = rs.getDouble("stavka_evidencije_treninga.tezina");
             double naporVezbe = rs.getDouble("stavka_evidencije_treninga.naporVezbe");
             //vezba
+            int id = rs.getInt("vezba.idVezba");
+            String naziv = rs.getString("vezba.naziv");
+            String opis = rs.getString("vezba.opis");
+            double napor = rs.getDouble("vezba.napor");
+            Vezba v = new Vezba(id, naziv, opis, napor);
             
-            StavkaEvidencijeTreninga set = new StavkaEvidencijeTreninga(rb, null, brojPonavljanja, brojSerija, tezina, naporVezbe, null);
+            int idEvidencija = rs.getInt("evidencija_treninga.idEvidencijaTreninga");
+            LocalDate datumTreninga = rs.getDate("evidencija_treninga.datumTreninga").toLocalDate();
+            double intenzitet = rs.getDouble("evidencija_treninga.intenzitet");
+            EvidencijaTreninga evidencija = new EvidencijaTreninga();
+            evidencija.setIdEvidencija(idEvidencija);
+            evidencija.setDatumTreninga(datumTreninga);
+            evidencija.setIntenzitet(intenzitet);
+            
+            StavkaEvidencijeTreninga set = new StavkaEvidencijeTreninga(rb, evidencija, brojPonavljanja, brojSerija, tezina, naporVezbe, v);
             lista.add(set);
         }
         
@@ -160,9 +174,10 @@ public class StavkaEvidencijeTreninga implements ApstraktniDomenskiObjekat{
             return false;
         }
         final StavkaEvidencijeTreninga other = (StavkaEvidencijeTreninga) obj;
-        return this.rb == other.rb;
+        if (this.rb != other.rb) {
+            return false;
+        }
+        return Objects.equals(this.evidencijaTreninga, other.evidencijaTreninga);
     }
-    
-    
     
 }

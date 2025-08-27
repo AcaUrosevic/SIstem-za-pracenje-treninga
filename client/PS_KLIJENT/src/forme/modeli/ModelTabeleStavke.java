@@ -14,7 +14,7 @@ import model.StavkaEvidencijeTreninga;
  */
 public class ModelTabeleStavke extends AbstractTableModel{
      List<StavkaEvidencijeTreninga> stavke;
-    String [] kolone = {"Rb", "Broj ponavljanja", "Broj serija", "Tezina", "Napor", "Vezba"};
+    String [] kolone = {"Broj ponavljanja", "Broj serija", "Tezina", "Napor", "Vezba"};
     
     public ModelTabeleStavke(List<StavkaEvidencijeTreninga> stavke){
         this.stavke = stavke;
@@ -34,12 +34,11 @@ public class ModelTabeleStavke extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         StavkaEvidencijeTreninga stavka = stavke.get(rowIndex);
         switch (columnIndex) {
-            case 0: return stavka.getRb();
-            case 1: return stavka.getBrojPonavljanja();
-            case 2: return stavka.getBrojSerija();
-            case 3: return stavka.getTezina();
-            case 4: return stavka.getNaporVezbe();
-            case 5: return stavka.getVezba().getNaziv();
+            case 0: return stavka.getBrojPonavljanja();
+            case 1: return stavka.getBrojSerija();
+            case 2: return stavka.getTezina();
+            case 3: return stavka.getNaporVezbe();
+            case 4: return stavka.getVezba().getNaziv();
             default: return "N/A";
         }
     }
@@ -52,4 +51,10 @@ public class ModelTabeleStavke extends AbstractTableModel{
     public List<StavkaEvidencijeTreninga>getStavke() {
         return stavke;
     }
+
+    public void removeAt(int selectedRow) {
+        stavke.remove(selectedRow);
+        fireTableRowsDeleted(selectedRow, selectedRow);
+    }
+    
 }

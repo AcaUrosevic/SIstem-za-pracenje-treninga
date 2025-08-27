@@ -5,6 +5,7 @@
 package operacije;
 
 import model.EvidencijaTreninga;
+import model.StavkaEvidencijeTreninga;
 
 /**
  *
@@ -19,7 +20,19 @@ public class KreirajEvidencijuTreningaSO extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void izvrsiOperaciju(Object obj, String kljuc) throws Exception {
-        idKreirana = broker.addAndReturnId((EvidencijaTreninga)obj);
+        EvidencijaTreninga e = (EvidencijaTreninga) obj;
+        int id = broker.addAndReturnId(e);
+        e.setIdEvidencija(id);
+        
+        if(e.getStavke() != null && !e.getStavke().isEmpty()){
+            int rb = 1;
+            for (StavkaEvidencijeTreninga stavka : e.getStavke()) {
+                stavka.setEvidencijaTreninga(e);
+                stavka.setRb(rb++);
+                broker.add(stavka);
+            }
+        }
+        idKreirana = id;
     }
 
     public int getIdKreirana() {

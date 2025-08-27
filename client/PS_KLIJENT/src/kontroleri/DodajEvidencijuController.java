@@ -46,37 +46,86 @@ public class DodajEvidencijuController {
         forma.addBtnDodajEvidencijuActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
+                try {
                     LocalDate datumTrening = LocalDate.parse(forma.getTxtDatumTreninga().getText());
-                    if(datumTrening.isAfter(LocalDate.now())){
-                        JOptionPane.showMessageDialog(forma, "Datum ne sme biti u budocnosti", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    if (datumTrening.isAfter(LocalDate.now())) {
+                        JOptionPane.showMessageDialog(forma, "Datum ne sme biti u buducnosti", "GRESKA", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     Trener trener = (Trener) forma.getCbTreneri().getSelectedItem();
                     ClanTeretane clan = (ClanTeretane) forma.getCbClanoviTeretane().getSelectedItem();
+
                     double intenzitet = 0;
                     for (StavkaEvidencijeTreninga s : stavke) {
                         intenzitet += s.getBrojPonavljanja() * s.getBrojSerija() * s.getNaporVezbe() * s.getTezina();
                     }
-                    if(!stavke.isEmpty())
-                        intenzitet = intenzitet/stavke.size();
+                    if (!stavke.isEmpty()) intenzitet = intenzitet / stavke.size();
+
                     EvidencijaTreninga evidencija = new EvidencijaTreninga(datumTrening, intenzitet, trener, clan);
-                    int idEvidencije = Komunikacija.getInstance().kreirajEvidencijuTreninga(evidencija);
-                    if(idEvidencije == -1){
+                    evidencija.setStavke(stavke);
+                    int id = Komunikacija.getInstance().kreirajEvidencijuTreninga(evidencija);
+                    if (id == -1) {
                         JOptionPane.showMessageDialog(forma, "Sistem ne moze da zapamti evidenciju treninga", "GRESKA", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    JOptionPane.showMessageDialog(forma, "Sistem je zapamtio evidenciju treninga", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-                    evidencija.setIdEvidencija(idEvidencije);
-                    for (StavkaEvidencijeTreninga stavka : stavke) {
-                        stavka.setEvidencijaTreninga(evidencija);
-                        boolean uspesno = Komunikacija.getInstance().kreirajStavku(stavka);
-                        if(!uspesno){
-                            JOptionPane.showMessageDialog(forma, "Greska pri dodavanju stavki evidencije", "GRESKA", JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
+                    evidencija.setIdEvidencija(id);
+                    JOptionPane.showMessageDialog(forma, "Sistem je zapamtio evidenciju", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                    forma.dispose();
+
+                } catch (DateTimeParseException ex) {
+                    JOptionPane.showMessageDialog(forma, "Datum mora biti u formatu: yyyy-mm-dd", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    
+        forma.addBtnObrsiStavkuActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = forma.getTblStavke().getSelectedRow();
+                if(selectedRow == -1){
+                    JOptionPane.showMessageDialog(forma, "Niste izabrali stavku", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                ModelTabeleStavke mts = (ModelTabeleStavke) forma.getTblStavke().getModel();
+                mts.removeAt(selectedRow);
+            }
+        });
+        
+        forma.addBtnIzmeniEvidencijuActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    LocalDate datumTrening = LocalDate.parse(forma.getTxtDatumTreninga().getText());
+                    if (datumTrening.isAfter(LocalDate.now())) {
+                        JOptionPane.showMessageDialog(forma, "Datum ne sme biti u buducnosti", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
-                } catch(DateTimeParseException ex){
+                    Trener trener = (Trener) forma.getCbTreneri().getSelectedItem();
+                    ClanTeretane clan = (ClanTeretane) forma.getCbClanoviTeretane().getSelectedItem();
+
+                    double intenzitet = 0;
+                    for (StavkaEvidencijeTreninga s : stavke) {
+                        intenzitet += s.getBrojPonavljanja() * s.getBrojSerija() * s.getNaporVezbe() * s.getTezina();
+                    }
+                    if (!stavke.isEmpty()) intenzitet = intenzitet / stavke.size();
+
+                    evidencijaZaIzmenu.setDatumTreninga(datumTrening);
+                    evidencijaZaIzmenu.setTrener(trener);
+                    evidencijaZaIzmenu.setClanTeretane(clan);
+                    evidencijaZaIzmenu.setIntenzitet(intenzitet);
+                    evidencijaZaIzmenu.setStavke(stavke); // VAŽNO: prosledi listu stavki
+
+                    boolean ok = Komunikacija.getInstance().izmeniEvidenciju(evidencijaZaIzmenu);
+                    if (!ok) {
+                        JOptionPane.showMessageDialog(forma, "Sistem ne moze da zapamti evidenciju treninga", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    JOptionPane.showMessageDialog(forma, "Sistem je zapamtio evidenciju treninga", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                    Kordinator.getInstance().osveziTabeluEvidencija();
+                    Kordinator.getInstance().osveziTabeluStavkiPrikaz();
+                    forma.dispose();
+                } catch (DateTimeParseException ex) {
                     JOptionPane.showMessageDialog(forma, "Datum mora biti u formatu: yyyy-mm-dd", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -86,6 +135,7 @@ public class DodajEvidencijuController {
     public void otvoriFormu(){
         forma.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         pripremiFormu();
+        forma.getBtnIzmeni().setVisible(false);
         forma.setVisible(true);
     }
 
@@ -117,11 +167,23 @@ public class DodajEvidencijuController {
     }
    
     public boolean dodajStavku(StavkaEvidencijeTreninga stv){
-        if(stavke.contains(stv))
-            return false;
         stavke.add(stv);
         ucitajTabelu();
         return true;
+    }
+
+    public void otvoriFormuIzmena() {
+        forma.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        pripremiFormuIzmena();
+        forma.getBtnDodaj().setVisible(false);
+        forma.setVisible(true);
+    }
+
+    private void pripremiFormuIzmena() {
+        pripremiFormu();
+        forma.getCbTreneri().setSelectedItem(evidencijaZaIzmenu.getTrener());
+        forma.getCbClanoviTeretane().setSelectedItem(evidencijaZaIzmenu.getClanTeretane());
+        forma.getTxtDatumTreninga().setText(evidencijaZaIzmenu.getDatumTreninga().toString());
     }
     
     

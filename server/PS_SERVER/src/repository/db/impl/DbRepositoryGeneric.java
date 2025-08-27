@@ -24,6 +24,7 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
         String upit = "SELECT * FROM " + param.vratiNazivTabele();
         if(uslov != null)
             upit += uslov;
+        upit += ";";
         System.out.println(upit);
         Statement s = DbConnectionFactory.getInstance().getConnection().createStatement();
         ResultSet rs = s.executeQuery(upit);
@@ -35,7 +36,7 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
 
     @Override
     public void add(ApstraktniDomenskiObjekat param) throws Exception {
-        String upit = "INSERT INTO "+ param.vratiNazivTabele() + " (" + param.vratiKoloneZaUbacivanje() + ") VALUES(" + param.vratiVrednostiZaUbacivanje() + ")";
+        String upit = "INSERT INTO "+ param.vratiNazivTabele() + " (" + param.vratiKoloneZaUbacivanje() + ") VALUES(" + param.vratiVrednostiZaUbacivanje() + ");";
         System.out.println(upit);
         Statement s = DbConnectionFactory.getInstance().getConnection().createStatement();
         s.executeUpdate(upit);
@@ -44,7 +45,7 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
 
     @Override
     public void edit(ApstraktniDomenskiObjekat param) throws Exception {
-        String upit = "UPDATE " + param.vratiNazivTabele() + " SET " + param.vratiVrednostiZaIzmenu()  + " WHERE " + param.vratiPrimarniKljuc();
+        String upit = "UPDATE " + param.vratiNazivTabele() + " SET " + param.vratiVrednostiZaIzmenu()  + " WHERE " + param.vratiPrimarniKljuc() + ";";
         System.out.println(upit);
         Statement s = DbConnectionFactory.getInstance().getConnection().createStatement();
         s.executeUpdate(upit);
@@ -53,7 +54,7 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
 
     @Override
     public void delete(ApstraktniDomenskiObjekat param) throws Exception {
-        String upit = "DELETE FROM " + param.vratiNazivTabele() + " WHERE " + param.vratiPrimarniKljuc() ;
+        String upit = "DELETE FROM " + param.vratiNazivTabele() + " WHERE " + param.vratiPrimarniKljuc() + ";";
         System.out.println(upit);
         Statement s = DbConnectionFactory.getInstance().getConnection().createStatement();
         s.executeUpdate(upit);
@@ -69,7 +70,7 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
     public int addAndReturnId(ApstraktniDomenskiObjekat param) throws Exception {
         String upit = "INSERT INTO " + param.vratiNazivTabele() + " (" +
                     param.vratiKoloneZaUbacivanje() + ") VALUES(" +
-                    param.vratiVrednostiZaUbacivanje() + ")";
+                    param.vratiVrednostiZaUbacivanje() + ");";
         System.out.println(upit);
         Statement s = DbConnectionFactory.getInstance().getConnection().createStatement();
         s.executeUpdate(upit, Statement.RETURN_GENERATED_KEYS);

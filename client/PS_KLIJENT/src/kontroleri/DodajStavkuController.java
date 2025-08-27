@@ -38,14 +38,13 @@ public class DodajStavkuController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    int rb = Integer.parseInt(forma.getTxtRedniBroj().getText());
                     int brojPonavljanja = Integer.parseInt(forma.getTxtBrojPonavljanja().getText());
                     int brojSerija = Integer.parseInt(forma.getTxtBrojSerija().getText());
                     try{
                         double tezina = Double.parseDouble(forma.getTxtTezina().getText());
                         double napor = Double.parseDouble(forma.getTxtNapor().getText());
                         Vezba v = (Vezba) forma.getCbVezba().getSelectedItem();
-                        StavkaEvidencijeTreninga stavka = new StavkaEvidencijeTreninga(rb, null, brojPonavljanja, brojSerija, tezina, napor, v);
+                        StavkaEvidencijeTreninga stavka = new StavkaEvidencijeTreninga(0, null, brojPonavljanja, brojSerija, tezina, napor, v);
 
                         boolean dodana = Kordinator.getInstance().dodajStavku(stavka);
                         if(dodana){

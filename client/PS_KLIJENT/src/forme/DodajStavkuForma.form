@@ -31,14 +31,12 @@
                           <Component id="jLabel6" max="32767" attributes="0"/>
                           <Component id="jLabel5" max="32767" attributes="0"/>
                           <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtTezina" max="32767" attributes="0"/>
-                          <Component id="txtRedniBroj" max="32767" attributes="0"/>
                           <Component id="txtBrojPonavljanja" max="32767" attributes="0"/>
                           <Component id="txtBrojSerija" max="32767" attributes="0"/>
                           <Component id="txtNapor" max="32767" attributes="0"/>
@@ -58,11 +56,6 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRedniBroj" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <Component id="txtBrojPonavljanja" min="-2" max="-2" attributes="0"/>
@@ -91,7 +84,7 @@
               </Group>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Component id="btnDodaj" min="-2" pref="42" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="46" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -100,11 +93,6 @@
     <Component class="javax.swing.JButton" name="btnDodaj">
       <Properties>
         <Property name="text" type="java.lang.String" value="Dodaj"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="redni broj:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -131,8 +119,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="vezba:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtRedniBroj">
     </Component>
     <Component class="javax.swing.JTextField" name="txtBrojPonavljanja">
     </Component>

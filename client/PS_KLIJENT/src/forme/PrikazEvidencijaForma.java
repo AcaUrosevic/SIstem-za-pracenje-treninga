@@ -4,7 +4,15 @@
  */
 package forme;
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import model.ClanTeretane;
+import model.Trener;
+import model.Vezba;
 
 /**
  *
@@ -30,6 +38,18 @@ public class PrikazEvidencijaForma extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEvidencije = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtDatumTreninga = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        cbClan = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        cbVezba = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        cbTrener = new javax.swing.JComboBox<>();
+        btnPretrazi = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblStavke = new javax.swing.JTable();
+        btnIzmeni = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,21 +66,91 @@ public class PrikazEvidencijaForma extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblEvidencije);
 
+        jLabel1.setText("Datum treninga:");
+
+        jLabel2.setText("Clan teretane:");
+
+        jLabel3.setText("Vezba:");
+
+        jLabel4.setText("Trener:");
+
+        btnPretrazi.setText("Pretrazi");
+
+        tblStavke.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblStavke);
+
+        btnIzmeni.setText("Izmeni");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDatumTreninga)
+                            .addComponent(cbClan, 0, 135, Short.MAX_VALUE)
+                            .addComponent(cbTrener, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbVezba, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(btnIzmeni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtDatumTreninga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(cbVezba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(cbClan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(cbTrener, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnIzmeni, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,7 +173,87 @@ public class PrikazEvidencijaForma extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIzmeni;
+    private javax.swing.JButton btnPretrazi;
+    private javax.swing.JComboBox<ClanTeretane> cbClan;
+    private javax.swing.JComboBox<Trener> cbTrener;
+    private javax.swing.JComboBox<Vezba> cbVezba;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblEvidencije;
+    private javax.swing.JTable tblStavke;
+    private javax.swing.JTextField txtDatumTreninga;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBtnIzmeni() {
+        return btnIzmeni;
+    }
+
+    public void setBtnIzmeni(JButton btnIzmeni) {
+        this.btnIzmeni = btnIzmeni;
+    }
+
+
+    public JButton getBtnPretrazi() {
+        return btnPretrazi;
+    }
+
+    public void setBtnPretrazi(JButton btnPretrazi) {
+        this.btnPretrazi = btnPretrazi;
+    }
+
+    public JComboBox<ClanTeretane> getCbClan() {
+        return cbClan;
+    }
+
+    public void setCbClan(JComboBox<ClanTeretane> cbClan) {
+        this.cbClan = cbClan;
+    }
+
+    public JComboBox<Trener> getCbTrener() {
+        return cbTrener;
+    }
+
+    public void setCbTrener(JComboBox<Trener> cbTrener) {
+        this.cbTrener = cbTrener;
+    }
+
+    public JComboBox<Vezba> getCbVezba() {
+        return cbVezba;
+    }
+
+    public void setCbVezba(JComboBox<Vezba> cbVezba) {
+        this.cbVezba = cbVezba;
+    }
+
+    public JTextField getTxtDatumTreninga() {
+        return txtDatumTreninga;
+    }
+
+    public void setTxtDatumTreninga(JTextField txtDatumTreninga) {
+        this.txtDatumTreninga = txtDatumTreninga;
+    }
+
+    public JTable getTblStavke() {
+        return tblStavke;
+    }
+
+    public void setTblStavke(JTable tblStavke) {
+        this.tblStavke = tblStavke;
+    }
+
+    public void addTblEvidencijeClickListener(MouseAdapter mouseAdapter) {
+        tblEvidencije.addMouseListener(mouseAdapter);
+    }
+
+    public void addBtnIzmeniActionListener(ActionListener actionListener) {
+        btnIzmeni.addActionListener(actionListener);
+    }
+
+
+    
 }

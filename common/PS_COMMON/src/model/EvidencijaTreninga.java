@@ -150,7 +150,7 @@ public class EvidencijaTreninga implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-        return "datumTreninga='" + datumTreninga + "', intenzitet='" +  intenzitet + ", trener" + trener.getIdTrener() + ", clanTeretane" + clanTeretane.getIdClanTeretane();
+        return "datumTreninga='" + datumTreninga + "', intenzitet=" +  intenzitet + ", trener=" + trener.getIdTrener() + ", clanTeretane=" + clanTeretane.getIdClanTeretane();
     }
 
 

@@ -12,7 +12,7 @@ import model.PaketUsluga;
  *
  * @author Aca
  */
-public class UcitajClanoveSO extends ApstraktnaGenerickaOperacija{
+public class VratiListuSviClanTeretaneSO extends ApstraktnaGenerickaOperacija{
     List<ClanTeretane> clanovi;
     
     @Override

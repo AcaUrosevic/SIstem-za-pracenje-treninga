@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import kordinator.Kordinator;
 import model.ClanTeretane;
 import model.EvidencijaTreninga;
@@ -45,7 +46,8 @@ public class Komunikacija {
             posiljalac = new Posiljalac(socket);
             primalac = new Primalac(socket);
         } catch (IOException ex) {
-            Logger.getLogger(Komunikacija.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Ne moze da se otvori glavna forma i meni", "GRESKA", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
 

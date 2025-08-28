@@ -70,11 +70,12 @@ public class PrikazClanovaController {
             public void actionPerformed(ActionEvent e) {
                  int selectedRow = forma.getTblClanovi().getSelectedRow();
                  if(selectedRow == -1){
-                    JOptionPane.showMessageDialog(forma, "Clan teretane nije izabran", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Sistem ne moze da nadje clana teretane", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     return;
                  }
                  ModelTabeleClanovi mtc = (ModelTabeleClanovi) forma.getTblClanovi().getModel();
                  ClanTeretane clan = mtc.getClanovi().get(selectedRow);
+                 JOptionPane.showMessageDialog(forma, "Sistem je nasao clana teretane", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                  Kordinator.getInstance().otvoriIzmenaFormu(clan);    
             }
         });
@@ -87,6 +88,12 @@ public class PrikazClanovaController {
                 PaketUsluga paket = (PaketUsluga) forma.getCbPaketi().getSelectedItem();
                 ModelTabeleClanovi mtc = (ModelTabeleClanovi) forma.getTblClanovi().getModel();
                 mtc.petrazi(ime, prezime, paket);
+                if(mtc.getClanovi().isEmpty()){
+                    JOptionPane.showMessageDialog(forma, "Sistem ne moze da nadje clanove teretane po zadatim kriterijumima", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(forma, "Sistem je nasao clanove teretane po zadatim kriterijumima", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
     }

@@ -73,7 +73,7 @@ public class DodajEvidencijuController {
                     forma.dispose();
 
                 } catch (DateTimeParseException ex) {
-                    JOptionPane.showMessageDialog(forma, "Datum mora biti u formatu: yyyy-mm-dd", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Sistem ne moze da kreira evidenciju treninga", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -113,7 +113,7 @@ public class DodajEvidencijuController {
                     evidencijaZaIzmenu.setTrener(trener);
                     evidencijaZaIzmenu.setClanTeretane(clan);
                     evidencijaZaIzmenu.setIntenzitet(intenzitet);
-                    evidencijaZaIzmenu.setStavke(stavke); // VAŽNO: prosledi listu stavki
+                    evidencijaZaIzmenu.setStavke(stavke);
 
                     boolean ok = Komunikacija.getInstance().izmeniEvidenciju(evidencijaZaIzmenu);
                     if (!ok) {

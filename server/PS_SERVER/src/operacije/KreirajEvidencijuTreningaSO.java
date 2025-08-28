@@ -4,6 +4,7 @@
  */
 package operacije;
 
+import java.time.LocalDate;
 import model.EvidencijaTreninga;
 import model.StavkaEvidencijeTreninga;
 
@@ -16,6 +17,11 @@ public class KreirajEvidencijuTreningaSO extends ApstraktnaGenerickaOperacija{
     
     @Override
     protected void preduslovi(Object obj) throws Exception {
+        EvidencijaTreninga e = (EvidencijaTreninga) obj;
+        Exception exception = new Exception();
+        if(e.getDatumTreninga() == null ||  e.getDatumTreninga().isAfter(LocalDate.now()))
+                throw exception;
+        
     }
 
     @Override

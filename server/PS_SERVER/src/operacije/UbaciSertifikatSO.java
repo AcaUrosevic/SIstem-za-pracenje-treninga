@@ -14,6 +14,10 @@ public class UbaciSertifikatSO extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void preduslovi(Object obj) throws Exception {
+        TrenerSertifikat ts = (TrenerSertifikat)obj;
+        Exception exception = new Exception();
+        if(ts.getSertifikat().getNaziv() == null || ts.getSertifikat().getTip() == null)
+            throw exception;
     }
 
     @Override

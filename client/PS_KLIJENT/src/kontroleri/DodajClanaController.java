@@ -44,7 +44,7 @@ public class DodajClanaController {
                     JOptionPane.showMessageDialog(forma, "Sistem je zapamtio clana teretane", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(forma, "Sistem ne moze da kreira clana teretane", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Sistem ne moze da zapamti clana teretane", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
                 forma.dispose();
             }
@@ -53,18 +53,20 @@ public class DodajClanaController {
         forma.addBtnIzmeniActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String ime = forma.getTxtIme().getText();
-                String prezime = forma.getTxtPrezime().getText();
-                String email = forma.getTxtEmail().getText();
+                String ime = forma.getTxtIme().getText().trim();
+                String prezime = forma.getTxtPrezime().getText().trim();
+                String email = forma.getTxtEmail().getText().trim();
                 PaketUsluga paket = (PaketUsluga) forma.getCbPaketUsluga().getSelectedItem();
                 
                 ClanTeretane izmenjeni = new ClanTeretane(clanZaIzmenu.getIdClanTeretane(),ime, prezime, email, paket);
+                
+                
                 boolean izmenjen = Komunikacija.getInstance().promeniClanaTeretane(izmenjeni);
                 if(izmenjen){
                     JOptionPane.showMessageDialog(forma, "Sistem je zapamtio clana teretane", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
-                JOptionPane.showMessageDialog(forma, "Sistem ne moze da nadje clana teretane po zadatom kriterijumu", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(forma, "Sistem ne moze da nadje clana teretane po zadatom kriterijumu", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
                 Kordinator.getInstance().osveziTabeluClanovi();
                 forma.dispose();

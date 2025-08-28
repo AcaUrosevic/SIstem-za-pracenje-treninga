@@ -64,7 +64,9 @@ public class PrikazEvidencijaController {
                 }
                 ModelTabeleEvidencije mte =(ModelTabeleEvidencije) forma.getTblEvidencije().getModel();
                 EvidencijaTreninga evidencija = mte.getEvidencije().get(selectedRow);
+                JOptionPane.showMessageDialog(forma,"Sistem je nasao evidenciju treninga","USPEH",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 Kordinator.getInstance().otvoriFormuIzmenaEvidencije(evidencija, stavke);
+                
             }
         });
     
@@ -88,6 +90,10 @@ public class PrikazEvidencijaController {
                     ucitajTabeluEvidencija();
                     ModelTabeleEvidencije mte = (ModelTabeleEvidencije) forma.getTblEvidencije().getModel();
                     mte.pretrazi(datum, clan, trener);
+                    if(!mte.getEvidencije().isEmpty())
+                        JOptionPane.showMessageDialog(forma,"Sistem je nasao evidencije treninga po zadatim kriterijumima","USPEH",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(forma,"Sistem ne moze da nadje evidencije treninga po zadatim kriterijumima","GRESKA",javax.swing.JOptionPane.ERROR_MESSAGE);
                     osveziTabeluStavki(new java.util.ArrayList<>());
                     return;
                 }
@@ -100,6 +106,10 @@ public class PrikazEvidencijaController {
                 ModelTabeleEvidencije m = new ModelTabeleEvidencije(lista);
                 forma.getTblEvidencije().setModel(m);
                 m.pretrazi(datum, clan, trener);
+                if(!m.getEvidencije().isEmpty())
+                        JOptionPane.showMessageDialog(forma,"Sistem je nasao evidencije treninga po zadatim kriterijumima","USPEH",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                else
+                        JOptionPane.showMessageDialog(forma,"Sistem ne moze da nadje evidencije treninga po zadatim kriterijumima","GRESKA",javax.swing.JOptionPane.ERROR_MESSAGE);   
                 osveziTabeluStavki(new ArrayList<>());
             }
         });

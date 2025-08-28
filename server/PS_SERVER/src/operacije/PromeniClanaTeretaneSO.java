@@ -14,6 +14,13 @@ public class PromeniClanaTeretaneSO extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void preduslovi(Object obj) throws Exception {
+        ClanTeretane ct = (ClanTeretane) obj;
+        Exception e = new Exception();
+        String ime = ct.getIme();
+        String prezime = ct.getPrezime();
+        String email = ct.getEmail();
+        if(ime == null || prezime == null || email == null || ime.isEmpty() || prezime.isEmpty() ||email.isEmpty())
+            throw e;
     }
 
     @Override

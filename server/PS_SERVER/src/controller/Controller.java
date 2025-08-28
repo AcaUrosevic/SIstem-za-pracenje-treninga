@@ -24,7 +24,7 @@ import operacije.PretraziEvidencijePoVezbiSO;
 import operacije.PromeniClanaTeretaneSO;
 import operacije.PromeniEvidencijuSO;
 import operacije.UbaciSertifikatSO;
-import operacije.UcitajClanoveSO;
+import operacije.VratiListuSviClanTeretaneSO;
 import operacije.UcitajPaketeSO;
 import operacije.VratiListuEvidencijaTreningaSO;
 import operacije.VratiListuSertifikataTreneraSO;
@@ -56,7 +56,7 @@ public class Controller {
     }
 
     public List<ClanTeretane> vratiListuClanova() throws Exception {
-        UcitajClanoveSO operacija = new UcitajClanoveSO();
+        VratiListuSviClanTeretaneSO operacija = new VratiListuSviClanTeretaneSO();
         operacija.izvrsi(new ClanTeretane(), "");
         return operacija.getClanovi();
     }
@@ -67,6 +67,7 @@ public class Controller {
             operacija.izvrsi(clanTeretane, "");
             return true;
         } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
     }

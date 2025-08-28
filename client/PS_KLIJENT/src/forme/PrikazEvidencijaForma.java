@@ -254,6 +254,10 @@ public class PrikazEvidencijaForma extends javax.swing.JFrame {
         btnIzmeni.addActionListener(actionListener);
     }
 
+    public void addBtnPretraziActionListener(ActionListener actionListener) {
+        btnPretrazi.addActionListener(actionListener);
+    }
+
 
     
 }

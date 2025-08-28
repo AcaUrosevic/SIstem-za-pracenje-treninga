@@ -6,20 +6,24 @@ package kordinator;
 
 import forme.DodajClanaForma;
 import forme.DodajEvidencijuForma;
+import forme.DodajSertifikatForma;
 import forme.DodajStavkuForma;
 import forme.GlavnaForma;
 import forme.LoginForma;
 import forme.PrikazClanovaForma;
 import forme.PrikazEvidencijaForma;
+import forme.PrikazSertifikataForma;
 import java.util.ArrayList;
 import java.util.List;
 import kontroleri.DodajClanaController;
 import kontroleri.DodajEvidencijuController;
+import kontroleri.DodajSertifikatController;
 import kontroleri.DodajStavkuController;
 import kontroleri.GlavnaController;
 import kontroleri.LoginController;
 import kontroleri.PrikazClanovaController;
 import kontroleri.PrikazEvidencijaController;
+import kontroleri.PrikazSertifikataController;
 import model.ClanTeretane;
 import model.EvidencijaTreninga;
 import model.StavkaEvidencijeTreninga;
@@ -39,6 +43,8 @@ public class Kordinator {
     PrikazEvidencijaController peController;
     DodajEvidencijuController deController;
     DodajStavkuController dsController;
+    PrikazSertifikataController psController;
+    DodajSertifikatController dSertifikatController;
     
     private Kordinator(){
         
@@ -118,6 +124,20 @@ public class Kordinator {
 
     public void osveziTabeluStavkiPrikaz() {
         peController.osveziTabeluStavki(new ArrayList<>());
+    }
+
+    public void osveziTabeluSertifikati() {
+        psController.ucitajTabeluSertifikata();
+    }
+
+    public void otvoriFormuPrikazSertifikata() {
+        psController = new PrikazSertifikataController(new PrikazSertifikataForma());
+        psController.otvoriFormu();
+    }
+
+    public void otvoriFOrmuDodajSertifikat() {
+        dSertifikatController = new DodajSertifikatController(new DodajSertifikatForma());
+        dSertifikatController.otvoriFormu();
     }
 
    

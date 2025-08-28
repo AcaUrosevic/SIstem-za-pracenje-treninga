@@ -147,8 +147,6 @@ public class DodajEvidencijuController {
 
     private void ucitajTrenere() {
         List<Trener> treneri = Komunikacija.getInstance().ucitajTrenere();
-        if(treneri == null){
-        }
         for (Trener trener : treneri) {
             forma.getCbTreneri().addItem(trener);
         }

@@ -12,13 +12,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
 import kordinator.Kordinator;
+import model.ClanTeretane;
 import model.EvidencijaTreninga;
 import model.StavkaEvidencijeTreninga;
+import model.Trener;
+import model.Vezba;
 
 /**
  *
@@ -63,6 +67,42 @@ public class PrikazEvidencijaController {
                 Kordinator.getInstance().otvoriFormuIzmenaEvidencije(evidencija, stavke);
             }
         });
+    
+        forma.addBtnPretraziActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LocalDate datum = null;
+                String t = forma.getTxtDatumTreninga().getText().trim();
+                if (!t.isEmpty()) {
+                    try { datum = java.time.LocalDate.parse(t); }
+                    catch (Exception ex) {
+                        JOptionPane.showMessageDialog(forma,"Datum: yyyy-MM-dd","GRESKA",javax.swing.JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+                Trener trener = (Trener) forma.getCbTrener().getSelectedItem();
+                ClanTeretane clan = (ClanTeretane) forma.getCbClan().getSelectedItem();
+                Vezba vezba = (Vezba) forma.getCbVezba().getSelectedItem();
+
+                if (vezba == null) {
+                    ucitajTabeluEvidencija();
+                    ModelTabeleEvidencije mte = (ModelTabeleEvidencije) forma.getTblEvidencije().getModel();
+                    mte.pretrazi(datum, clan, trener);
+                    osveziTabeluStavki(new java.util.ArrayList<>());
+                    return;
+                }
+
+                List<EvidencijaTreninga> lista = Komunikacija.getInstance().pretraziEvidencijePoVezbi(vezba);
+                if (lista == null) {
+                    JOptionPane.showMessageDialog(forma,"Sistem ne moze da vrati evidencije","GRESKA", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                ModelTabeleEvidencije m = new ModelTabeleEvidencije(lista);
+                forma.getTblEvidencije().setModel(m);
+                m.pretrazi(datum, clan, trener);
+                osveziTabeluStavki(new ArrayList<>());
+            }
+        });
     }
 
     public void otvoriFormu() {
@@ -73,6 +113,9 @@ public class PrikazEvidencijaController {
     private void pripremiFormu() {
         forma.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         ucitajTabeluEvidencija();
+        ucitajCbTreneri();
+        ucitajCbClanovi();
+        ucitajCbVezbe();
         osveziTabeluStavki(new ArrayList<>());
     }
 
@@ -85,6 +128,30 @@ public class PrikazEvidencijaController {
     public void osveziTabeluStavki(List<StavkaEvidencijeTreninga> stavke) {
         ModelTabeleStavke mts = new ModelTabeleStavke(stavke);
         forma.getTblStavke().setModel(mts);
+    }
+
+    private void ucitajCbTreneri() {
+        List<Trener> treneri = Komunikacija.getInstance().ucitajTrenere();
+        forma.getCbTrener().addItem(null);
+        for (Trener trener : treneri) {
+            forma.getCbTrener().addItem(trener);
+        }
+    }
+
+    private void ucitajCbClanovi() {
+        List<ClanTeretane> clanovi = Komunikacija.getInstance().ucitajClanove();
+        forma.getCbClan().addItem(null);
+        for (ClanTeretane clanTeretane : clanovi) {
+            forma.getCbClan().addItem(clanTeretane);
+        }
+    }
+
+    private void ucitajCbVezbe() {
+        List<Vezba> vezbe = Komunikacija.getInstance().vratiListuVezbi();
+        forma.getCbVezba().addItem(null);
+        for (Vezba vezba : vezbe) {
+            forma.getCbVezba().addItem(vezba);
+        }
     }
     
     

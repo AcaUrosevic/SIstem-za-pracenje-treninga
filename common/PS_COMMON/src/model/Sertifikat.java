@@ -20,6 +20,11 @@ public class Sertifikat implements ApstraktniDomenskiObjekat{
 
     public Sertifikat() {
     }
+    
+    public Sertifikat(String naziv, String tip) {
+        this.naziv = naziv;
+        this.tip = tip;
+    }
 
     public Sertifikat(int idSertifikat, String naziv, String tip) {
         this.idSertifikat = idSertifikat;

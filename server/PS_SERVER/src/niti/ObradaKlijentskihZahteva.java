@@ -18,8 +18,10 @@ import komunikacija.Zahtev;
 import model.ClanTeretane;
 import model.EvidencijaTreninga;
 import model.PaketUsluga;
+import model.Sertifikat;
 import model.StavkaEvidencijeTreninga;
 import model.Trener;
+import model.TrenerSertifikat;
 import model.Vezba;
 
 /**
@@ -102,6 +104,20 @@ public class ObradaKlijentskihZahteva extends Thread{
                         boolean promenjena = Controller.getInstance().promeniEvidenciju((EvidencijaTreninga) zahtev.getParametar());
                         odgovor.setOdgovor(promenjena);
                         break;
+                        case Operacija.PRETRAZI_EVIDENCIJE_PO_VEZBI:
+                            Vezba v = (Vezba) zahtev.getParametar();
+                            List<EvidencijaTreninga> lst = Controller.getInstance().pretraziEvidencijePoVezbi(v);
+                            odgovor.setOdgovor(lst);
+                            break;
+                        case Operacija.UCITAJ_SERTIFIKATE:
+                            List<TrenerSertifikat> sertifikati = Controller.getInstance().vratiListuSertifikata((Trener)zahtev.getParametar());
+                            odgovor.setOdgovor(sertifikati);
+                            break;
+                        case Operacija.UBACI_SERTIFIKAT:
+                            odgovor.setOdgovor(false);
+                            boolean ubacen = Controller.getInstance().ubaciSertifikat((TrenerSertifikat)zahtev.getParametar());
+                            odgovor.setOdgovor(ubacen);
+                            break;
                     default:
                         System.out.println("greska, losa operacija u zahtevu");
                 }

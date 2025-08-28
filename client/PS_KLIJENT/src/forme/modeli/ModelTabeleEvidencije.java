@@ -4,9 +4,13 @@
  */
 package forme.modeli;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.table.AbstractTableModel;
+import model.ClanTeretane;
 import model.EvidencijaTreninga;
+import model.Trener;
 
 /**
  *
@@ -51,5 +55,15 @@ public class ModelTabeleEvidencije extends AbstractTableModel{
 
     public List<EvidencijaTreninga> getEvidencije() {
         return evidencije;
+    }
+    
+    public void pretrazi(LocalDate datum, ClanTeretane clan, Trener trener) {
+        List<model.EvidencijaTreninga> filtrirane = fullEvidencije.stream()
+            .filter(e -> datum == null || e.getDatumTreninga().equals(datum))
+            .filter(e -> clan == null   || (e.getClanTeretane()!=null && e.getClanTeretane().getIdClanTeretane()==clan.getIdClanTeretane()))
+            .filter(e -> trener == null || (e.getTrener()!=null && e.getTrener().getIdTrener()==trener.getIdTrener()))
+            .collect(Collectors.toList());
+        this.evidencije = filtrirane;
+        fireTableDataChanged();
     }
 }

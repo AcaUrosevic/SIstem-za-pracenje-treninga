@@ -61,10 +61,22 @@ public class TrenerSertifikat implements ApstraktniDomenskiObjekat{
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while(rs.next()){
             //trener
+            int idTrener = rs.getInt("trener.idTrener");
+            String ime = rs.getString("trener.ime");
+            String prezime = rs.getString("trener.prezime");
+            String korisnickoIme = rs.getString("trener.korisnickoIme");
+            String email = rs.getString("trener.email");
+            String sifra = rs.getString("trener.sifra");
+            Trener t = new Trener(idTrener, ime, prezime, email, korisnickoIme, sifra);
             //sertifikat
+            int idSertifikat = rs.getInt("sertifikat.idSertifikat");
+            String naziv = rs.getString("sertifikat.naziv");
+            String tip = rs.getString("sertifikat.tip");
+            
+            Sertifikat s = new Sertifikat(idSertifikat, naziv, tip);
             LocalDate datumIzdavanja = rs.getDate("trener_sertifikat.datumIzdavanja").toLocalDate();
             
-            TrenerSertifikat ts = new TrenerSertifikat(null, null, datumIzdavanja);
+            TrenerSertifikat ts = new TrenerSertifikat(t, s, datumIzdavanja);
             lista.add(ts);
         }
         

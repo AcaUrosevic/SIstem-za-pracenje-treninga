@@ -9,11 +9,14 @@ import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import kordinator.Kordinator;
 import model.ClanTeretane;
 import model.EvidencijaTreninga;
 import model.PaketUsluga;
+import model.Sertifikat;
 import model.StavkaEvidencijeTreninga;
 import model.Trener;
+import model.TrenerSertifikat;
 import model.Vezba;
 
 /**
@@ -131,5 +134,28 @@ public class Komunikacija {
         Odgovor odgovor = (Odgovor) primalac.primi();
         return (boolean) odgovor.getOdgovor();
     }
+
+    public List<EvidencijaTreninga> pretraziEvidencijePoVezbi(Vezba vezba) {
+        Zahtev z = new Zahtev(Operacija.PRETRAZI_EVIDENCIJE_PO_VEZBI, vezba);
+        posiljalac.posalji(z);
+        Odgovor o = (Odgovor) primalac.primi();
+        return (List<EvidencijaTreninga>) o.getOdgovor();
+    }
+
+    public List<TrenerSertifikat> ucitajSertifikate() {
+        Zahtev z = new Zahtev(Operacija.UCITAJ_SERTIFIKATE, Kordinator.getInstance().getUlogovani());
+        posiljalac.posalji(z);
+        Odgovor o = (Odgovor) primalac.primi();
+        return (List<TrenerSertifikat>) o.getOdgovor();
+    }
+
+    public boolean ubaciSertifikat(TrenerSertifikat ts) {
+        Zahtev zahtev = new Zahtev(Operacija.UBACI_SERTIFIKAT,ts);
+        posiljalac.posalji(zahtev);
+        Odgovor odgovor = (Odgovor) primalac.primi();
+        return (boolean) odgovor.getOdgovor();
+    }
+
+
     
 }

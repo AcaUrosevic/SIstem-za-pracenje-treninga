@@ -32,23 +32,6 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menuTreneri">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Treneri"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="miPrikaziTrenere">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="prikazi"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miDodajTrenera">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="dodaj"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="menuEvidencije">
           <Properties>
             <Property name="text" type="java.lang.String" value="Evidencije Treninga"/>
@@ -68,6 +51,24 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dodajEvidencijuActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menuSertifikati">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Sertifikati"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSertifikatiActionPerformed"/>
+          </Events>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="miSertifikati">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="prikaz"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miSertifikatiActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -115,7 +116,7 @@
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblUlogovani" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="240" max="32767" attributes="0"/>
+              <EmptySpace pref="241" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

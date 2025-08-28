@@ -4,24 +4,30 @@
  */
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ClanTeretane;
 import model.EvidencijaTreninga;
 import model.PaketUsluga;
+import model.Sertifikat;
 import model.StavkaEvidencijeTreninga;
 import model.Trener;
+import model.TrenerSertifikat;
 import model.Vezba;
 import operacije.KreirajClanaTeretaneSO;
 import operacije.KreirajEvidencijuTreningaSO;
 import operacije.LoginOperacija;
 import operacije.ObrisiClanaTeretaneSO;
+import operacije.PretraziEvidencijePoVezbiSO;
 import operacije.PromeniClanaTeretaneSO;
 import operacije.PromeniEvidencijuSO;
+import operacije.UbaciSertifikatSO;
 import operacije.UcitajClanoveSO;
 import operacije.UcitajPaketeSO;
 import operacije.VratiListuEvidencijaTreningaSO;
+import operacije.VratiListuSertifikataTreneraSO;
 import operacije.VratiListuStavkiSO;
 import operacije.VratiListuTreneraSO;
 import operacije.VratiListuVezbiSO;
@@ -133,4 +139,30 @@ public class Controller {
             return false;
         }
     }
+
+    public List<EvidencijaTreninga> pretraziEvidencijePoVezbi(Vezba v) throws Exception {
+        PretraziEvidencijePoVezbiSO operacija= new PretraziEvidencijePoVezbiSO();
+        operacija.izvrsi(v, "");
+        return operacija.getLista();
+    }
+
+    public List<TrenerSertifikat> vratiListuSertifikata(Trener trener) throws Exception {
+        VratiListuSertifikataTreneraSO operacija = new VratiListuSertifikataTreneraSO();
+        operacija.izvrsi(trener, "");
+        return operacija.getSertifikatiTrenera();
+    }
+
+    public boolean ubaciSertifikat(TrenerSertifikat trenerSertifikat) {
+        UbaciSertifikatSO operacija = new UbaciSertifikatSO();
+        try {
+            operacija.izvrsi(trenerSertifikat, "");
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        
+    }
+
+
 }

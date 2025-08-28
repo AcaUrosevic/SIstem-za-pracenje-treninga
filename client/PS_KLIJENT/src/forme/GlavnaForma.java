@@ -38,12 +38,11 @@ public class GlavnaForma extends javax.swing.JFrame {
         menuClanovi = new javax.swing.JMenu();
         miPrikaziClanove = new javax.swing.JMenuItem();
         miDodajClana = new javax.swing.JMenuItem();
-        menuTreneri = new javax.swing.JMenu();
-        miPrikaziTrenere = new javax.swing.JMenuItem();
-        miDodajTrenera = new javax.swing.JMenuItem();
         menuEvidencije = new javax.swing.JMenu();
         miPrikaziEvidencije = new javax.swing.JMenuItem();
         dodajEvidenciju = new javax.swing.JMenuItem();
+        menuSertifikati = new javax.swing.JMenu();
+        miSertifikati = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -73,16 +72,6 @@ public class GlavnaForma extends javax.swing.JFrame {
 
         jMenuBar1.add(menuClanovi);
 
-        menuTreneri.setText("Treneri");
-
-        miPrikaziTrenere.setText("prikazi");
-        menuTreneri.add(miPrikaziTrenere);
-
-        miDodajTrenera.setText("dodaj");
-        menuTreneri.add(miDodajTrenera);
-
-        jMenuBar1.add(menuTreneri);
-
         menuEvidencije.setText("Evidencije Treninga");
 
         miPrikaziEvidencije.setText("prikazi");
@@ -102,6 +91,23 @@ public class GlavnaForma extends javax.swing.JFrame {
         menuEvidencije.add(dodajEvidenciju);
 
         jMenuBar1.add(menuEvidencije);
+
+        menuSertifikati.setText("Sertifikati");
+        menuSertifikati.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSertifikatiActionPerformed(evt);
+            }
+        });
+
+        miSertifikati.setText("prikaz");
+        miSertifikati.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSertifikatiActionPerformed(evt);
+            }
+        });
+        menuSertifikati.add(miSertifikati);
+
+        jMenuBar1.add(menuSertifikati);
 
         setJMenuBar(jMenuBar1);
 
@@ -123,7 +129,7 @@ public class GlavnaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblUlogovani))
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,6 +150,15 @@ public class GlavnaForma extends javax.swing.JFrame {
     private void dodajEvidencijuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajEvidencijuActionPerformed
         Kordinator.getInstance().otvoriFormuDodajEvidenciju();
     }//GEN-LAST:event_dodajEvidencijuActionPerformed
+
+    private void menuSertifikatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSertifikatiActionPerformed
+
+    }//GEN-LAST:event_menuSertifikatiActionPerformed
+
+    private void miSertifikatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSertifikatiActionPerformed
+        Kordinator.getInstance().otvoriFormuPrikazSertifikata();
+        System.out.println("ee");// TODO add your handling code here:
+    }//GEN-LAST:event_miSertifikatiActionPerformed
 
     /**
      * @return 
@@ -168,11 +183,11 @@ public class GlavnaForma extends javax.swing.JFrame {
     }
 
     public JMenu getMenuTreneri() {
-        return menuTreneri;
+        return menuSertifikati;
     }
 
     public void setMenuTreneri(JMenu menuTreneri) {
-        this.menuTreneri = menuTreneri;
+        this.menuSertifikati = menuTreneri;
     }
 
     public JMenuItem getMiDodajClana() {
@@ -183,13 +198,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         this.miDodajClana = miDodajClana;
     }
 
-    public JMenuItem getMiDodajTrenera() {
-        return miDodajTrenera;
-    }
 
-    public void setMiDodajTrenera(JMenuItem miDodajTrenera) {
-        this.miDodajTrenera = miDodajTrenera;
-    }
 
     public JMenuItem getMiPrikaziClanove() {
         return miPrikaziClanove;
@@ -199,13 +208,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         this.miPrikaziClanove = miPrikaziClanove;
     }
 
-    public JMenuItem getMiPrikaziTrenere() {
-        return miPrikaziTrenere;
-    }
 
-    public void setMiPrikaziTrenere(JMenuItem miPrikaziTrenere) {
-        this.miPrikaziTrenere = miPrikaziTrenere;
-    }
     
 
 
@@ -217,11 +220,10 @@ public class GlavnaForma extends javax.swing.JFrame {
     private javax.swing.JLabel lblUlogovani;
     private javax.swing.JMenu menuClanovi;
     private javax.swing.JMenu menuEvidencije;
-    private javax.swing.JMenu menuTreneri;
+    private javax.swing.JMenu menuSertifikati;
     private javax.swing.JMenuItem miDodajClana;
-    private javax.swing.JMenuItem miDodajTrenera;
     private javax.swing.JMenuItem miPrikaziClanove;
     private javax.swing.JMenuItem miPrikaziEvidencije;
-    private javax.swing.JMenuItem miPrikaziTrenere;
+    private javax.swing.JMenuItem miSertifikati;
     // End of variables declaration//GEN-END:variables
 }

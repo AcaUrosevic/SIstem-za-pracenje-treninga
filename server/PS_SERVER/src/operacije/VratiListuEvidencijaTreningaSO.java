@@ -7,7 +7,9 @@ package operacije;
 import java.util.List;
 import model.ClanTeretane;
 import model.EvidencijaTreninga;
+import model.StavkaEvidencijeTreninga;
 import model.Trener;
+import model.Vezba;
 
 /**
  *
@@ -28,6 +30,13 @@ public class VratiListuEvidencijaTreningaSO extends ApstraktnaGenerickaOperacija
         String uslov = " JOIN " + trenerTabela +" on " + evidencijaTabela + ".trener = " + trenerTabela + ".idTrener "
                             + "JOIN " + clanTabela + " on " + evidencijaTabela + ".clanTeretane = " + clanTabela + ".idClanTeretane";
         evidencije = broker.getAll((EvidencijaTreninga) obj, uslov);
+        for (EvidencijaTreninga evidencija : evidencije) {
+            List<StavkaEvidencijeTreninga> stavke = broker.getAll(new StavkaEvidencijeTreninga(),
+                                                " JOIN " +new Vezba().vratiNazivTabele() + " on vezba = idVezba" +
+                                                " JOIN " + evidencija.vratiNazivTabele() + " on evidencija = idEvidencijaTreninga" + 
+                                                " WHERE " + "evidencija = " + evidencija.getIdEvidencija());
+            evidencija.setStavke(stavke);
+        }
     }
 
     public List<EvidencijaTreninga> getEvidencije() {

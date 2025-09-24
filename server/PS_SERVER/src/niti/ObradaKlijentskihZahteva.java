@@ -95,10 +95,6 @@ public class ObradaKlijentskihZahteva extends Thread{
                         int idKreiraneEvidencije = Controller.getInstance().kreirajEvidencijuTreninga((EvidencijaTreninga)zahtev.getParametar());
                         odgovor.setOdgovor(idKreiraneEvidencije);
                         break;
-                    case Operacija.VRATI_STAVKE_EVIDENCIJE:
-                        List<StavkaEvidencijeTreninga> stavke = Controller.getInstance().vratiListuStavki((EvidencijaTreninga) zahtev.getParametar());
-                        odgovor.setOdgovor(stavke);
-                        break;
                     case Operacija.PROMENI_EVIDENCIJU:
                         odgovor.setOdgovor(false);
                         boolean promenjena = Controller.getInstance().promeniEvidenciju((EvidencijaTreninga) zahtev.getParametar());

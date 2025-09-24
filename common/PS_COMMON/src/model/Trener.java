@@ -122,28 +122,41 @@ public class Trener implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Trener)) return false;
+    Trener t = (Trener) o;
+
+    if (this.idTrener > 0 && t.idTrener > 0) {
+        return this.idTrener == t.idTrener;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Trener other = (Trener) obj;
-        if (!Objects.equals(this.korisnickoIme, other.korisnickoIme)) {
-            return false;
-        }
-        return Objects.equals(this.sifra, other.sifra);
+    if (this.korisnickoIme != null && t.korisnickoIme != null
+            && this.sifra != null && t.sifra != null) {
+        return this.korisnickoIme.equalsIgnoreCase(t.korisnickoIme)
+                && this.sifra.equals(t.sifra);
     }
+
+    if (this.email != null && t.email != null) {
+        return this.email.equalsIgnoreCase(t.email);
+    }
+
+    return false;
+}
+
+@Override
+public int hashCode() {
+    if (idTrener > 0) {
+        return Integer.hashCode(idTrener);
+    }
+    if (korisnickoIme != null && sifra != null) {
+        return java.util.Objects.hash(korisnickoIme.toLowerCase(), sifra);
+    }
+    if (email != null) {
+        return email.toLowerCase().hashCode();
+    }
+    return 0;
+}
     
     
 
@@ -169,7 +182,7 @@ public class Trener implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-        return "ime='" + ime + "', prezime='" + prezime + "', email='" + email + "', korisnickoIme'" + korisnickoIme + "', sifra='" + sifra + "'";
+        return "ime='" + ime + "', prezime='" + prezime + "', email='" + email + "', korisnickoIme='" + korisnickoIme + "', sifra='" + sifra + "'";
     }
     
     

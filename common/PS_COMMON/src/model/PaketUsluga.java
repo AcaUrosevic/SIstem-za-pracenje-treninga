@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class PaketUsluga implements ApstraktniDomenskiObjekat{
     int idPaketUsluga;
-    LocalDate datumUplate;
     int trajanje;
     double cena;
     String naziv;
@@ -24,9 +23,8 @@ public class PaketUsluga implements ApstraktniDomenskiObjekat{
     public PaketUsluga() {
     }
 
-    public PaketUsluga(int idPaketUsluga, LocalDate datumUplate, int trajanje, double cena, String naziv, String opis) {
+    public PaketUsluga(int idPaketUsluga, int trajanje, double cena, String naziv, String opis) {
         this.idPaketUsluga = idPaketUsluga;
-        this.datumUplate = datumUplate;
         this.trajanje = trajanje;
         this.cena = cena;
         this.naziv = naziv;
@@ -41,14 +39,6 @@ public class PaketUsluga implements ApstraktniDomenskiObjekat{
 
     public void setIdPaketUsluga(int idPaketUsluga) {
         this.idPaketUsluga = idPaketUsluga;
-    }
-
-    public LocalDate getDatumUplate() {
-        return datumUplate;
-    }
-
-    public void setDatumUplate(LocalDate datumUplate) {
-        this.datumUplate = datumUplate;
     }
 
     public int getTrajanje() {
@@ -96,13 +86,12 @@ public class PaketUsluga implements ApstraktniDomenskiObjekat{
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while(rs.next()){
             int id = rs.getInt("paket_usluga.idPaketUsluga");
-            LocalDate datumUplate = rs.getDate("paket_usluga.datumUplate").toLocalDate();
             int trajanje = rs.getInt("paket_usluga.trajanje");
             double cena = rs.getDouble("paket_usluga.cena");
             String naziv = rs.getString("paket_usluga.naziv");
             String opis = rs.getString("paket_usluga.opis");
             
-            PaketUsluga pu = new PaketUsluga(id, datumUplate, trajanje, cena, naziv, opis);
+            PaketUsluga pu = new PaketUsluga(id, trajanje, cena, naziv, opis);
             lista.add(pu);
         }
         
@@ -142,7 +131,7 @@ public class PaketUsluga implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-        return "" + datumUplate + ", " + trajanje + ", " + cena + ", " + naziv + ", " + opis;
+        return "" + trajanje + ", " + cena + ", " + naziv + ", " + opis;
     }
 
     @Override
@@ -157,7 +146,7 @@ public class PaketUsluga implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-        return "datumUplate=" + datumUplate + ", trajanje" + trajanje + ", cena=" + cena + ", naziv=" + naziv + ", opis=" + opis;
+        return "trajanje" + trajanje + ", cena=" + cena + ", naziv=" + naziv + ", opis=" + opis;
     }
     
     

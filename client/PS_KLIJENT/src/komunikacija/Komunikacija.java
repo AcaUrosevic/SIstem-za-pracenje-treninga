@@ -123,13 +123,6 @@ public class Komunikacija {
         return (int) odgovor.getOdgovor();
     }
 
-    public List<StavkaEvidencijeTreninga> vratiStavkeEvidencije(EvidencijaTreninga evidencija) {
-        Zahtev zahtev = new Zahtev(Operacija.VRATI_STAVKE_EVIDENCIJE, evidencija);
-        posiljalac.posalji(zahtev);
-        Odgovor odgovor = (Odgovor) primalac.primi();
-        return (List<StavkaEvidencijeTreninga>)odgovor.getOdgovor();
-    }
-
     public boolean izmeniEvidenciju(EvidencijaTreninga evidencijaZaIzmenu) {
         Zahtev zahtev = new Zahtev(Operacija.PROMENI_EVIDENCIJU,evidencijaZaIzmenu);
         posiljalac.posalji(zahtev);

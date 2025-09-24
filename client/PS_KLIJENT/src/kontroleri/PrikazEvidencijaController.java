@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +44,12 @@ public class PrikazEvidencijaController {
                 if (selectedRow < 0) return;
                 ModelTabeleEvidencije mte =(ModelTabeleEvidencije) forma.getTblEvidencije().getModel();
                 EvidencijaTreninga evidencija = mte.getEvidencije().get(selectedRow);
-                stavke = Komunikacija.getInstance().vratiStavkeEvidencije(evidencija);
-                if(stavke == null){
+                stavke = evidencija.getStavke();
+                if(evidencija.getStavke() == null){
                     JOptionPane.showMessageDialog(forma, "Sistem ne moze da vrati stavke evidencije treninga", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                osveziTabeluStavki(stavke);
+                osveziTabeluStavki(evidencija.getStavke());
             } 
         });
         
@@ -64,6 +63,7 @@ public class PrikazEvidencijaController {
                 }
                 ModelTabeleEvidencije mte =(ModelTabeleEvidencije) forma.getTblEvidencije().getModel();
                 EvidencijaTreninga evidencija = mte.getEvidencije().get(selectedRow);
+                System.out.println(evidencija.getTrener().getIme() + " " + evidencija.getTrener().getPrezime());
                 JOptionPane.showMessageDialog(forma,"Sistem je nasao evidenciju treninga","USPEH",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 Kordinator.getInstance().otvoriFormuIzmenaEvidencije(evidencija, stavke);
                 

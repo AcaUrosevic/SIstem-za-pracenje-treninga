@@ -6,6 +6,7 @@ package operacije;
 
 import java.util.List;
 import model.EvidencijaTreninga;
+import model.StavkaEvidencijeTreninga;
 import model.Vezba;
 
 /**
@@ -29,6 +30,14 @@ public class PretraziEvidencijePoVezbiSO extends ApstraktnaGenerickaOperacija{
             " JOIN vezba ON s.vezba = vezba.idVezba" +
             " WHERE vezba.idVezba = " + v.getIdVezba()
         );
+        
+        for (EvidencijaTreninga evidencija : lista) {
+            List<StavkaEvidencijeTreninga> stavke = broker.getAll(new StavkaEvidencijeTreninga(),
+                                                " JOIN " +new Vezba().vratiNazivTabele() + " on vezba = idVezba" +
+                                                " JOIN " + evidencija.vratiNazivTabele() + " on evidencija = idEvidencijaTreninga" + 
+                                                " WHERE " + "evidencija = " + evidencija.getIdEvidencija());
+            evidencija.setStavke(stavke);
+        }
     }
 
     public List<EvidencijaTreninga> getLista() {

@@ -28,7 +28,6 @@ import operacije.VratiListuSviClanTeretaneSO;
 import operacije.UcitajPaketeSO;
 import operacije.VratiListuEvidencijaTreningaSO;
 import operacije.VratiListuSertifikataTreneraSO;
-import operacije.VratiListuStavkiSO;
 import operacije.VratiListuTreneraSO;
 import operacije.VratiListuVezbiSO;
 
@@ -124,11 +123,6 @@ public class Controller {
         return operacija.getIdKreirana();
     }
 
-    public List<StavkaEvidencijeTreninga> vratiListuStavki(EvidencijaTreninga evidencijaTreninga) throws Exception {
-        VratiListuStavkiSO operacija = new VratiListuStavkiSO();
-        operacija.izvrsi(evidencijaTreninga, "");
-        return operacija.getStavke();
-    }
 
     public boolean promeniEvidenciju(EvidencijaTreninga evidencijaTreninga) {
         PromeniEvidencijuSO operacija = new PromeniEvidencijuSO();

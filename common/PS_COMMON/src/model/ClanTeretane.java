@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -92,12 +93,11 @@ public class ClanTeretane implements ApstraktniDomenskiObjekat{
             String prezime = rs.getString("clan_teretane.prezime");
             String email = rs.getString("clan_teretane.email");
             int idPaketUsluga = rs.getInt("paket_usluga.idPaketUsluga");
-            LocalDate datumUplate = rs.getDate("paket_usluga.datumUplate").toLocalDate();
             int trajanje = rs.getInt("paket_usluga.trajanje");
             double cena = rs.getDouble("paket_usluga.cena");
             String naziv = rs.getString("paket_usluga.naziv");
             String opis = rs.getString("paket_usluga.opis");
-            PaketUsluga pu = new PaketUsluga(idPaketUsluga, datumUplate, trajanje, cena, naziv, opis);
+            PaketUsluga pu = new PaketUsluga(idPaketUsluga, trajanje, cena, naziv, opis);
             
             ClanTeretane ct = new ClanTeretane(id, ime, prezime, email, pu);
             lista.add(ct);
@@ -135,6 +135,29 @@ public class ClanTeretane implements ApstraktniDomenskiObjekat{
     public String toString() {
         return  ime + " " + prezime;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ClanTeretane other = (ClanTeretane) obj;
+        return Objects.equals(this.email, other.email);
+    }
+    
+    
     
     
 }

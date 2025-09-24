@@ -8,6 +8,8 @@ import java.util.List;
 import model.EvidencijaTreninga;
 import model.StavkaEvidencijeTreninga;
 import model.Vezba;
+import repository.db.impl.EvidencijaTreningaRepository;
+import repository.db.impl.StavkaEvidencijeRepository;
 
 /**
  *
@@ -23,19 +25,11 @@ public class PretraziEvidencijePoVezbiSO extends ApstraktnaGenerickaOperacija{
     @Override
     protected void izvrsiOperaciju(Object obj, String kljuc) throws Exception {
         Vezba v = (Vezba) obj;
-        lista = broker.getAll(new EvidencijaTreninga(),
-            " JOIN trener ON evidencija_treninga.trener = trener.idTrener" +
-            " JOIN clan_teretane ON evidencija_treninga.clanTeretane = clan_teretane.idClanTeretane" +
-            " JOIN stavka_evidencije_treninga s ON s.evidencija = evidencija_treninga.idEvidencijaTreninga" +
-            " JOIN vezba ON s.vezba = vezba.idVezba" +
-            " WHERE vezba.idVezba = " + v.getIdVezba()
-        );
-        
+        EvidencijaTreningaRepository evidencijaRepo = new EvidencijaTreningaRepository();
+        lista = evidencijaRepo.pretraziPoVezbi(v);
+        StavkaEvidencijeRepository stavkaRepo = new StavkaEvidencijeRepository();
         for (EvidencijaTreninga evidencija : lista) {
-            List<StavkaEvidencijeTreninga> stavke = broker.getAll(new StavkaEvidencijeTreninga(),
-                                                " JOIN " +new Vezba().vratiNazivTabele() + " on vezba = idVezba" +
-                                                " JOIN " + evidencija.vratiNazivTabele() + " on evidencija = idEvidencijaTreninga" + 
-                                                " WHERE " + "evidencija = " + evidencija.getIdEvidencija());
+            List<StavkaEvidencijeTreninga> stavke = stavkaRepo.pretraziPoEvidenciji(evidencija);
             evidencija.setStavke(stavke);
         }
     }

@@ -7,6 +7,7 @@ package operacije;
 import java.util.List;
 import model.ClanTeretane;
 import model.PaketUsluga;
+import repository.db.impl.ClanTeretaneRepository;
 
 /**
  *
@@ -21,9 +22,8 @@ public class VratiListuSviClanTeretaneSO extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void izvrsiOperaciju(Object obj, String kljuc) throws Exception {
-        String paketTabela = new PaketUsluga().vratiNazivTabele();
-        String clanTabela = new ClanTeretane().vratiNazivTabele();
-        clanovi = broker.getAll((ClanTeretane)obj, " JOIN " + paketTabela + " on " + clanTabela + ".paketUsluga = " + paketTabela + ".idPaketUsluga");
+        ClanTeretaneRepository repo = new ClanTeretaneRepository();
+        clanovi = repo.vratiSve();
     }
 
     public List<ClanTeretane> getClanovi() {

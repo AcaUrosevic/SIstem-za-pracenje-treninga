@@ -8,6 +8,7 @@ import java.util.List;
 import model.Sertifikat;
 import model.Trener;
 import model.TrenerSertifikat;
+import repository.db.impl.SertifikatRepository;
 
 /**
  *
@@ -22,10 +23,8 @@ public class VratiListuSertifikataTreneraSO extends ApstraktnaGenerickaOperacija
     @Override
     protected void izvrsiOperaciju(Object obj, String kljuc) throws Exception {
         Trener trener = (Trener)obj;
-        sertifikatiTrenera = broker.getAll(new TrenerSertifikat(), 
-                                                             " JOIN "+ trener.vratiNazivTabele() + " ON trener = idTrener" +
-                                                             " JOIN "+ new Sertifikat().vratiNazivTabele() + " ON sertifikat = idSertifikat" +
-                                                             " WHERE trener = "  + trener.getIdTrener());
+        SertifikatRepository repo = new SertifikatRepository();
+        sertifikatiTrenera = repo.pretraziPoTreneru(trener);
     }
 
     public List<TrenerSertifikat> getSertifikatiTrenera() {

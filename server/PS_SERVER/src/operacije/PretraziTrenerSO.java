@@ -6,6 +6,7 @@ package operacije;
 
 import java.util.List;
 import model.Trener;
+import repository.db.impl.TrenerRepository;
 
 /**
  *
@@ -22,7 +23,8 @@ public class PretraziTrenerSO extends ApstraktnaGenerickaOperacija{
     @Override
     protected void izvrsiOperaciju(Object obj, String kljuc) throws Exception {
         Trener t = (Trener) obj;
-        treneri = broker.getAll(t, "WHERE ime = " + t.getIme());
+        TrenerRepository repo = new TrenerRepository();
+        treneri = repo.pretraziPoImenu(t);
     }
 
     public List<Trener> getTreneri() {

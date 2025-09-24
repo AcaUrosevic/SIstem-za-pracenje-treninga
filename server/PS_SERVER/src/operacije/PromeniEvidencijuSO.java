@@ -9,6 +9,7 @@ import model.ApstraktniDomenskiObjekat;
 import model.EvidencijaTreninga;
 import model.StavkaEvidencijeTreninga;
 import model.Vezba;
+import repository.db.impl.StavkaEvidencijeRepository;
 
 /**
  *
@@ -25,11 +26,8 @@ public class PromeniEvidencijuSO extends ApstraktnaGenerickaOperacija{
         
         broker.edit(e);
         
-        List<StavkaEvidencijeTreninga> stare =
-            broker.getAll(new StavkaEvidencijeTreninga(), 
-                                     " JOIN " +new Vezba().vratiNazivTabele() + " on vezba = idVezba" +
-                                     " JOIN " + e.vratiNazivTabele() + " on evidencija = idEvidencijaTreninga" +
-                                     " WHERE evidencija = " + e.getIdEvidencija());
+        StavkaEvidencijeRepository stavkaRepo = new StavkaEvidencijeRepository();
+        List<StavkaEvidencijeTreninga> stare = stavkaRepo.pretraziPoEvidenciji(e);
         for (StavkaEvidencijeTreninga s : stare) {
             broker.delete(s);
         }
